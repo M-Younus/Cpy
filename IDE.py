@@ -1,13 +1,14 @@
 from tkinter import *
 
-def main():
-    print("in main")
 
-    root=Tk()
+class IDE:
 
+    def __init__(self,codeText,consoleText):
+        print("in main")
 
+        root = Tk()
 
-    root.mainloop()
+        root.mainloop()
 
 
 
