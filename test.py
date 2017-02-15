@@ -33,20 +33,26 @@ def main():
     editmenu.add_command(label="Cut",command=testMethod)
     editmenu.add_command(label="Paste",command=testMethod)
 
-    codeFrame=Frame(root,width=300, height=300,bg="red")
-    codeFrame.pack_propagate(0)
-    # codeFrame.grid_propagate(0)
-    codeFrame.pack(padx=50,pady=0)
+    menu.add_command(label="Run",command=testMethod)
 
-    codeT = Text(codeFrame)
-    codeT.config(width=10,height=10)
-    codeT.pack()
+    # scrollbar = Scrollbar(root)
+    # scrollbar.pack(side=RIGHT, fill=Y)
 
-    # consoleFrame = Frame(root)
-    # consoleFrame.pack()
-
-    # codeT=Text(consoleFrame)
+    # codeFrame=Frame(root,height=h2-300,bg="red")
+    # codeFrame.pack_propagate(0)
+    # codeFrame.pack(fill=X)
+    #
+    # codeT = Text(codeFrame)
+    # codeT.config(width=10,height=10)
     # codeT.pack()
+
+    consoleFrame = Frame(root,bg="green")
+    # consoleFrame.pack_propagate(0)
+    consoleFrame.pack(fill=X,side=BOTTOM)
+
+    consoleT=Text(consoleFrame)
+    consoleT.config(width=10,height=15)
+    consoleT.pack()
 
     root.mainloop()
 

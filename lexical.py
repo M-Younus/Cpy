@@ -1,5 +1,7 @@
 
-def main():
-    print("main")
-    
-if __name__== "__main__": main()
+
+class Lexical():
+
+    def chk_Id(self,temp):
+        if temp!="":
+            print("Identifiers found "+temp)
