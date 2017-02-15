@@ -1,22 +1,25 @@
 
 
-# f = open('test.txt','r')
+f = open('test.txt','r')
 # for ch in iter(lambda: f.read(1), ''):
 #     print(ch,end="")
 #
-# while True:
-#     ch=f.read(1)
-#     if not ch: break
-#     print (ch)
+
+ch=f.read(1)
+ch=f.read(1)
+print (ch)
+ch=f.read(-1)
+print (ch)
+# ch=f.read(-1)
+# print (ch)
 
 
-def main():
-    print("Dfdxcx")
-    a="ddfdf\\nd\"fd"
-    print(a)
+# def main():
+#     print("Dfdxcx")
+#     a="ddfdf\\nd\"fd"
+#     print(a)
 
 
-main()
 
 
 #
