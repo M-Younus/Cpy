@@ -70,9 +70,35 @@ class Lexical():
 
 
     def chk_FLT_CONST(self,temp,LN):
+
+        state=0;FS=[1,3]
+
         if temp!="":
-            print("Identifiers found "+temp+" at "+str(LN))
-        return True
+            for i in range(len(temp)):
+                state=self.trans_FLT(state,temp[i])
+                if state==4:
+                    return False
+            return state in FS
+        return False
+
+    def trans_FLT(self,state,elem):
+
+        TT_FLOAT=[
+            [1,2,2],
+            [1,3,4],
+            [1,4,1],
+            [4,4,4],
+            [4,4,4]
+        ]
+
+        if re.match("[0-9]",elem):
+            return TT_FLOAT[state][0]
+        elif elem=='.':
+            return TT_FLOAT[state][1]
+        elif elem=='+' or elem=='-':
+            return TT_FLOAT[state][2]
+        else:
+            return 4
 
     def chk_CHAR_CONST(self,temp,LN):
         if temp!="":

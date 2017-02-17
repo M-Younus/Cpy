@@ -1,6 +1,8 @@
 
 from lexical import Lexical
 
+import re
+
 def main():
 
     temp="";lineNum=1
@@ -8,7 +10,7 @@ def main():
     f = open('test.txt', 'rb+')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
-        , '<' , '>' , '-' , '+' , '*' , '/' , ':' , ';' ]
+        , '<' , '>' , '-' , '+' , '*' , '/' , ':' , ';' , '.' ]
 
     lex=Lexical()
 
@@ -23,7 +25,23 @@ def main():
 
         if ch in breakers:
 
-            if lex.chk_keywords(temp, lineNum):
+            if ch=='.':
+                f.seek(-2,1)
+                OneLeft =f.read(1)
+                OneRight = f.read(2)
+                if re.match("[0-9]",OneLeft) and re.match("[0-9]",OneRight):
+                    f.seek(-1, 1)
+                    temp+=ch
+                else:
+                    f.seek(-2, 1)
+                    continue
+
+
+            elif lex.chk_FLT_CONST(temp, lineNum):
+                printToken("FLT_CONST", temp, lineNum)
+                temp = ""
+
+            elif lex.chk_keywords(temp, lineNum):
                 printToken("Keyword", temp, lineNum)
                 temp = ""
 
