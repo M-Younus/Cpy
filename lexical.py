@@ -29,13 +29,20 @@ class Lexical():
 
     def chk_CHAR_CONST(self,temp,LN):
         if temp!="":
-            print("Identifiers found "+temp+" at "+str(LN))
-        return True
+            if len(temp)==3:
+                if temp[0]=='\'' and temp[2]=='\'':
+                    return True
+            elif len(temp)==4:
+                if temp[0]=='\'' and temp[1]=='\\' and temp[3]=='\'':
+                    return True
+        return False
 
     def chk_STR_CONST(self,temp,LN):
         if temp!="":
-            print("string found "+temp+" at "+str(LN))
-        return True
+            if temp[0]=='\"' and temp[len(temp)-1]=='\"' and temp[len(temp)-2]!='\\':
+                return True
+        return False
+
 
     def chk_falto(self):
         print("bit falto stuff")
