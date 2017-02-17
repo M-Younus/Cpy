@@ -1,5 +1,5 @@
 a=65
-void main():{
+def main():{
     a=65,b==c
     while(a<==b):{
         'c' "abcxyz" 24_57a.987.a76

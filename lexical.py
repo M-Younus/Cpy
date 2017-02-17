@@ -3,7 +3,8 @@ import re
 
 class Lexical():
 
-    _keywords=['False','class','finally','is','return']
+    _keywords = ['False', 'class', 'finally', 'is', 'return', 'None', 'continue', 'for', 'lambda', 'True',
+                     'def', 'while', 'elif', 'if', 'else', 'break']
 
     def chk_ID(self,temp,LN):
         if temp!="":
@@ -12,8 +13,9 @@ class Lexical():
 
     def chk_keywords(self,temp,LN):
         if temp!="":
-            print("Identifiers found "+temp+" at "+str(LN))
-        return True
+            if temp in self._keywords:
+                return True
+        return False
 
     def chk_INT_CONST(self,temp,LN):
         if temp!="":

@@ -10,7 +10,7 @@ def main():
     f = open('test.txt', 'r')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n'
-        , '<' , '>' , '-' , '+' , '*' , '/' ]
+        , '<' , '>' , '-' , '+' , '*' , '/' , ':' ]
 
     lex=Lexical()
 
@@ -21,32 +21,15 @@ def main():
 
         if ch in breakers:
 
-            # if ch=='\"' or ch=='\'':
-            #     temp+=ch
-
-
-            if lex.chk_STR_CONST(temp,lineNum):
-
-                if ch=="\"":
-                    while True:
-                        old=ch
-                        ch=f.read(1)
-                        if old!='\\' and ch=='\"':
-                            break
-                        elif old!='\\' and ch=='\n':
-                            break
-                        else:
-                            temp+=ch
-
-                printToken("STR_CONST",temp,lineNum)
-                temp = ""
+            if lex.chk_keywords(temp, lineNum):
+                printToken("Keyword", temp, lineNum)
 
             elif lex.chk_ID(temp,lineNum):
                 printToken("ID",temp,lineNum)
                 temp = ""
 
-            elif lex.chk_keywords(temp,lineNum):
-                printToken("Keyword",temp,lineNum)
+            elif lex.chk_STR_CONST(temp,lineNum):
+                printToken("STR_CONST",temp,lineNum)
                 temp = ""
 
             elif lex.falto():
