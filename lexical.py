@@ -32,8 +32,7 @@ class Lexical():
 
     def chk_STR_CONST(self,temp,LN):
         if temp!="":
-
-            print("Identifiers found "+temp+" at "+str(LN))
+            print("string found "+temp+" at "+str(LN))
         return True
 
     def chk_falto(self):

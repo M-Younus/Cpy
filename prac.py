@@ -1,15 +1,18 @@
 
+import re
 
-f = open('test.txt','r')
+# f = open('test.txt','r')
 # for ch in iter(lambda: f.read(1), ''):
 #     print(ch,end="")
 #
 
-ch=f.read(1)
-ch=f.read(1)
-print (ch)
-ch=f.read(-1)
-print (ch)
+randStr="hel_"
+
+print(re.match( "[a-z_][0-9a-z_]" , randStr))
+
+
+
+
 # ch=f.read(-1)
 # print (ch)
 
