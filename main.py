@@ -1,13 +1,11 @@
 
 from lexical import Lexical
 
-
-
 def main():
 
     temp="";lineNum=1
 
-    f = open('test.txt', 'r')
+    f = open('testingcode.txt', 'r')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n'
         , '<' , '>' , '-' , '+' , '*' , '/' , ':' , ';' ]
@@ -30,6 +28,10 @@ def main():
             # elif lex.chk_ID(temp,lineNum):
             #     printToken("ID",temp,lineNum)
             #     temp = ""
+
+            elif lex.chk_INT_CONST(temp,lineNum):
+                printToken("INT_CONST",temp,lineNum)
+                temp = ""
 
             elif lex.chk_STR_CONST(temp,lineNum):
                 printToken("STR_CONST",temp,lineNum)

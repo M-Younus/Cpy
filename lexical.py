@@ -18,9 +18,33 @@ class Lexical():
         return False
 
     def chk_INT_CONST(self,temp,LN):
+
+        state=0;FS=1
+
         if temp!="":
-            print("Identifiers found "+temp+" at "+str(LN))
-        return True
+            for i in range(len(temp)):
+                state=self.trans_INT(state,temp[i])
+            return state==FS
+        return False
+
+
+    def trans_INT(self,state,elem):
+
+        TT_INT = [
+            [1, 2],
+            [1, 3],
+            [1, 3],
+            [3, 3]
+        ]
+
+        if elem>='0' and elem<='9':
+            return TT_INT[state][0]
+        elif elem=='+' or elem=='-':
+            return TT_INT[state][1]
+        else:
+            return 3
+
+
 
     def chk_FLT_CONST(self,temp,LN):
         if temp!="":

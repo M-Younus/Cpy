@@ -1,2 +1,1 @@
-5 "hello"
-'x' return
+5
