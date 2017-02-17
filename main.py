@@ -5,7 +5,7 @@ def main():
 
     temp="";lineNum=1
 
-    f = open('testingcode.txt', 'r')
+    f = open('test.txt', 'r')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n'
         , '<' , '>' , '-' , '+' , '*' , '/' , ':' , ';' ]
@@ -15,6 +15,7 @@ def main():
     while True:
         ch = f.read(1)
 
+        print("current position", f.tell())
 
         if not ch: break
 
@@ -54,6 +55,8 @@ def main():
                 lineNum+=1
         else:
             temp+=ch
+
+    f.close()
 
 
 

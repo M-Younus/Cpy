@@ -1,6 +1,4 @@
 
-import re
-
 class Lexical():
 
     _keywords = ['False', 'class', 'finally', 'is', 'return', 'None', 'continue', 'for', 'lambda', 'True',
