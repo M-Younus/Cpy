@@ -5,7 +5,7 @@ def main():
 
     temp="";lineNum=1
 
-    f = open('test.txt', 'r')
+    f = open('test.txt', 'rb+')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n'
         , '<' , '>' , '-' , '+' , '*' , '/' , ':' , ';' ]
@@ -14,6 +14,8 @@ def main():
 
     while True:
         ch = f.read(1)
+
+        ch=str(ch,'utf-8')
 
         print("current position", f.tell())
 
