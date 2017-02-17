@@ -25,8 +25,9 @@ def main():
 
         if ch == '.':
             f.seek(-2, 1)
-            OneLeft = f.read(1)
-            OneRight = f.read(2)
+            OneLeft = str(f.read(1),'utf-8')
+            f.seek(1, 1)
+            OneRight = str(f.read(1),'utf-8')
             if re.match("[0-9]", OneLeft) and re.match("[0-9]", OneRight):
                 f.seek(-1, 1)
                 temp += ch
@@ -41,7 +42,7 @@ def main():
                 printToken("FLT_CONST", temp, lineNum)
                 temp = ""
 
-            elif lex.chk_keywords(temp, lineNum):
+            if lex.chk_keywords(temp, lineNum):
                 printToken("Keyword", temp, lineNum)
                 temp = ""
 
@@ -73,7 +74,7 @@ def main():
             if ch=='\n':
                 lineNum+=1
         else:
-            temp+=ch
+            temp+=str(ch)
 
     f.close()
 

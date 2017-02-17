@@ -71,23 +71,23 @@ class Lexical():
 
     def chk_FLT_CONST(self,temp,LN):
 
-        state=0;FS=[1,3]
+        state=0;FS=3
 
         if temp!="":
             for i in range(len(temp)):
                 state=self.trans_FLT(state,temp[i])
                 if state==4:
                     return False
-            return state in FS
+            return state==FS
         return False
 
     def trans_FLT(self,state,elem):
 
         TT_FLOAT=[
-            [1,2,2],
+            [1,2,1],
             [1,3,4],
-            [1,4,1],
-            [4,4,4],
+            [3,4,1],
+            [3,4,4],
             [4,4,4]
         ]
 
@@ -118,5 +118,5 @@ class Lexical():
 
 
     def chk_falto(self):
-        print("bit falto stuff")
+        # print("bit falto stuff")
         return True
