@@ -7,7 +7,7 @@ def main():
 
     f = open('test.txt', 'rb+')
 
-    breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n'
+    breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
         , '<' , '>' , '-' , '+' , '*' , '/' , ':' , ';' ]
 
     lex=Lexical()
@@ -17,20 +17,19 @@ def main():
 
         ch=str(ch,'utf-8')
 
-        print("current position", f.tell())
+        # print("current position", f.tell())
 
         if not ch: break
 
         if ch in breakers:
 
-
             if lex.chk_keywords(temp, lineNum):
                 printToken("Keyword", temp, lineNum)
                 temp = ""
 
-            # elif lex.chk_ID(temp,lineNum):
-            #     printToken("ID",temp,lineNum)
-            #     temp = ""
+            elif lex.chk_ID(temp,lineNum):
+                printToken("ID",temp,lineNum)
+                temp = ""
 
             elif lex.chk_INT_CONST(temp,lineNum):
                 printToken("INT_CONST",temp,lineNum)

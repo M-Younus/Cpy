@@ -1,13 +1,36 @@
 
+import re
+
 class Lexical():
 
     _keywords = ['False', 'class', 'finally', 'is', 'return', 'None', 'continue', 'for', 'lambda', 'True',
                      'def', 'while', 'elif', 'if', 'else', 'break']
 
     def chk_ID(self,temp,LN):
+
+        state=0;FS=1
         if temp!="":
-            print("Identifiers found "+temp+" at "+str(LN))
-        return True
+            for i in range(len(temp)):
+                state=self.trand_ID(state,temp[i])
+                if state==3:
+                    return False
+            return state==FS
+        return False
+
+    def trand_ID(self,state,elem):
+
+        TT_ID = [
+            [1, 2],
+            [1, 1],
+            [1, 1]
+        ]
+
+        if re.match("[A-Za-z]",elem):
+            return TT_ID[state][0]
+        elif elem=='_':
+            return TT_ID[state][1]
+        else:
+            return 3
 
     def chk_keywords(self,temp,LN):
         if temp!="":
@@ -22,6 +45,8 @@ class Lexical():
         if temp!="":
             for i in range(len(temp)):
                 state=self.trans_INT(state,temp[i])
+                if state==3:
+                    return False
             return state==FS
         return False
 
@@ -35,7 +60,7 @@ class Lexical():
             [3, 3]
         ]
 
-        if elem>='0' and elem<='9':
+        if re.match("[0-9]",elem):
             return TT_INT[state][0]
         elif elem=='+' or elem=='-':
             return TT_INT[state][1]
