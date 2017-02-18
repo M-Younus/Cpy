@@ -1,0 +1,3 @@
+(ID,a,1)
+(FLT_CONST,.987,5)
+(ADD_SUB,,6)
