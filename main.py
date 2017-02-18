@@ -6,9 +6,11 @@ import re
 
 def main():
 
+    global fileData
+
     temp="";lineNum=1
 
-    f = open('testingcode.txt', 'rb+')
+    f = open('test.txt', 'rb+')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
             , '<' , '>' , '-' , '+' , '*' , '/' , '%' , ':' , ';' , '.' , '!' , '&' , '|' ]
@@ -81,8 +83,10 @@ def main():
             if ch=='\n':
                 lineNum+=1
 
-            else:
-                print("Error at "+str(lineNum) + " where value is "+temp)
+            elif temp!="":
+                temp="Error at "+str(lineNum) + " where value is "+temp
+                fileData+=temp+"\n"
+                # print("Error at "+str(lineNum) + " where value is "+temp)
                 temp=""
 
         else:
@@ -136,7 +140,9 @@ def main():
                 printToken("LO", temp, lineNum)
                 temp = ""
             elif ch != '!' and ch != OneRight:
-                print("Error at " + str(lineNum) + " where value is " + str(ch))
+                temp = "Error at " + str(lineNum) + " where value is " + str(ch)
+                fileData += temp + "\n"
+                # print("Error at " + str(lineNum) + " where value is " + str(ch))
                 f.seek(-1,1)
                 temp = ""
             elif ch == '!':

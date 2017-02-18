@@ -9,6 +9,7 @@ a*=b
 a==b
 a%h
 h&&t
+h&t
 k<=t
 k!=i
 l<m
