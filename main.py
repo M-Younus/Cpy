@@ -132,11 +132,13 @@ def main():
                 temp = ch + OneRight
                 printToken("LO", temp, lineNum)
                 temp = ""
+            elif ch != '!' and ch != OneRight:
+                print("Error at " + str(lineNum) + " where value is " + str(ch))
+                f.seek(-1,1)
+                temp = ""
             elif ch == '!':
                 f.seek(-1, 1)
                 printToken("LO", str(ch), lineNum)
-            else:
-                f.seek(-1, 1)
 
     f.close()
 
