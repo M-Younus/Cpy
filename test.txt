@@ -6,3 +6,6 @@ a+b
 a*=b
 a==b
 a%h
+k<=t
+k!=i
+l<m

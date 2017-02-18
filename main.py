@@ -93,7 +93,7 @@ def main():
             temp+=str(ch)
 
 
-        #check for inc_DEc and add_sub
+        #check for inc_DEc and add_sub and asgn
         if ch in ['+','-','*','/','%']:
             OneRight = str(f.read(1),'utf-8')
             if  ch==OneRight:
@@ -114,6 +114,18 @@ def main():
             elif ch in ['/','%']:
                 f.seek(-1,1)
                 printToken("DIV_REM", str(ch), lineNum)
+
+        # check for RO
+        if ch in ['<', '>', '=', '!']:
+            OneRight = str(f.read(1), 'utf-8')
+            if OneRight == '=':
+                temp = ch + OneRight
+                printToken("RO", temp, lineNum)
+                temp = ""
+            else:
+                f.seek(-1,1)
+                printToken("RO", str(ch), lineNum)
+
 
     f.close()
 
