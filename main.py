@@ -35,6 +35,8 @@ def main():
             else:
                 f.seek(-2, 1)
                 ch = f.read(1)
+                ch = str(ch, 'utf-8')
+
 
         if ch in breakers:
 
