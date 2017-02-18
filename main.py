@@ -109,6 +109,8 @@ def main():
             elif ch in ['/','%']:
                 f.seek(-1,1)
                 printToken("DIV_REM", str(ch), lineNum)
+            else:
+                f.seek(-1, 1)
 
         # check for RO
         if ch in ['<', '>', '=', '!']:
@@ -120,6 +122,8 @@ def main():
             elif ch != '!':
                 f.seek(-1,1)
                 printToken("RO", str(ch), lineNum)
+            else:
+                f.seek(-1, 1)
 
         # check for LO
         if ch in ['&', '|', '!']:
@@ -131,6 +135,8 @@ def main():
             elif ch == '!':
                 f.seek(-1, 1)
                 printToken("LO", str(ch), lineNum)
+            else:
+                f.seek(-1, 1)
 
     f.close()
 
