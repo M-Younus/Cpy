@@ -8,7 +8,7 @@ def main():
 
     temp="";lineNum=1
 
-    f = open('testingcode.txt', 'rb+')
+    f = open('test.txt', 'rb+')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
             , '<' , '>' , '-' , '+' , '*' , '/' , ':' , ';' , '.' ]
@@ -41,11 +41,10 @@ def main():
 
         elif ch == '+' or ch == '-':
             OneRight = str(f.read(1),'utf-8')
-            if  re.match("[0-9]", OneRight) or OneRight=='.':
-                f.seek(-1, 1)
+            f.seek(-1, 1)
+            if re.match("[0-9]", OneRight) or OneRight=='.':
                 temp += ch
                 continue
-
 
 
         if ch in breakers:
@@ -77,28 +76,30 @@ def main():
             # elif lex.chk_falto():
             #     temp = ""
 
+            if ch!='\n' and ch!='\r' and ch!=' ':
+                print(ch+" at "+str(lineNum))
+            if ch=='\n':
+                lineNum+=1
+
             else:
                 print("Error at "+str(lineNum) + " where value is "+temp)
                 temp=""
 
-            if ch!='\n' and ch!=' ':
-                print(ch+" at "+str(lineNum))
-            if ch=='\n':
-                lineNum+=1
+
+        else:
+            temp+=str(ch)
+
 
         #check for inc_DEc and add_sub
         if ch == '+' or ch == '-':
             OneRight = str(f.read(1),'utf-8')
             if  ch==OneRight:
-                temp+=ch+ch
+                temp=ch+ch
                 printToken("INC_DEC",temp,lineNum)
                 continue
             else:
-                printToken("ADD_SUB", temp, lineNum)
-
-
-        else:
-            temp+=str(ch)
+                f.seek(-1,1)
+                printToken("ADD_SUB", str(ch), lineNum)
 
     f.close()
 
@@ -107,9 +108,9 @@ fileData=""
 
 def printToken(CPart,VPart,line):
     global fileData
-    string="("+CPart+","+VPart+","+str(line)+")"
-    fileData+=string+"\n"
+    string="( "+CPart+" , "+VPart+" , "+str(line)+" )"
     print(string)
+    fileData+=string+"\n"
 
 
 if __name__=="__main__":main()
