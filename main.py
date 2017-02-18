@@ -8,7 +8,7 @@ def main():
 
     temp="";lineNum=1
 
-    f = open('test.txt', 'rb+')
+    f = open('testingcode.txt', 'rb+')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
             , '<' , '>' , '-' , '+' , '*' , '/' , '%' , ':' , ';' , '.' , '!' , '&' , '|' ]
@@ -119,6 +119,9 @@ def main():
                 temp = ch + OneRight
                 printToken("RO", temp, lineNum)
                 temp = ""
+            elif ch == '=':
+                f.seek(-1, 1)
+                printToken('=', '-', lineNum)
             elif ch != '!':
                 f.seek(-1,1)
                 printToken("RO", str(ch), lineNum)

@@ -1,6 +1,7 @@
 j!i
 hel.py
 def
+y=6
 a+b
 ++
 --
