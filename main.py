@@ -11,7 +11,9 @@ def main():
     f = open('test.txt', 'rb+')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
-            , '<' , '>' , '-' , '+' , '*' , '/' , ':' , ';' , '.' ]
+            , '<' , '>' , '-' , '+' , '*' , '/' , '%' , ':' , ';' , '.' ]
+
+    invalidPrint=[ '=' , ' ' , '\n' , '\r' , '<' , '>' , '-' , '+' , '*' , '/' , '%']
 
     lex=Lexical()
 
@@ -76,7 +78,8 @@ def main():
             # elif lex.chk_falto():
             #     temp = ""
 
-            if ch!='\n' and ch!='\r' and ch!=' ':
+            if ch not in invalidPrint:
+                printToken(str(ch), '-', lineNum)
                 print(ch+" at "+str(lineNum))
             if ch=='\n':
                 lineNum+=1
@@ -91,15 +94,26 @@ def main():
 
 
         #check for inc_DEc and add_sub
-        if ch == '+' or ch == '-':
+        if ch in ['+','-','*','/','%']:
             OneRight = str(f.read(1),'utf-8')
             if  ch==OneRight:
                 temp=ch+ch
                 printToken("INC_DEC",temp,lineNum)
-                continue
-            else:
+                temp=""
+                # continue
+            elif OneRight == '=':
+                temp=ch+OneRight
+                printToken("ASGN_OPT",temp,lineNum)
+                temp=""
+            elif ch in ['+','-']:
                 f.seek(-1,1)
                 printToken("ADD_SUB", str(ch), lineNum)
+            elif ch == '*':
+                f.seek(-1,1)
+                printToken("MUL", str(ch), lineNum)
+            elif ch in ['/','%']:
+                f.seek(-1,1)
+                printToken("DIV_REM", str(ch), lineNum)
 
     f.close()
 
