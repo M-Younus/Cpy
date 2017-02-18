@@ -11,9 +11,9 @@ def main():
     f = open('test.txt', 'rb+')
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
-            , '<' , '>' , '-' , '+' , '*' , '/' , '%' , ':' , ';' , '.' ]
+            , '<' , '>' , '-' , '+' , '*' , '/' , '%' , ':' , ';' , '.' , '!' , '&' , '|' ]
 
-    invalidPrint=[ '=' , ' ' , '\n' , '\r' , '<' , '>' , '-' , '+' , '*' , '/' , '%']
+    invalidPrint=[ '=' , ' ' , '\n' , '\r' , '<' , '>' , '-' , '+' , '*' , '/' , '%' , '!' , '&' , '|' ]
 
     lex=Lexical()
 
@@ -75,9 +75,6 @@ def main():
                 printToken("CHAR_CONST",temp,lineNum)
                 temp = ""
 
-            # elif lex.chk_falto():
-            #     temp = ""
-
             if ch not in invalidPrint:
                 printToken(str(ch), '-', lineNum)
                 print(ch+" at "+str(lineNum))
@@ -88,7 +85,6 @@ def main():
                 print("Error at "+str(lineNum) + " where value is "+temp)
                 temp=""
 
-
         else:
             temp+=str(ch)
 
@@ -96,11 +92,10 @@ def main():
         #check for inc_DEc and add_sub and asgn
         if ch in ['+','-','*','/','%']:
             OneRight = str(f.read(1),'utf-8')
-            if  ch==OneRight:
+            if ch == OneRight:
                 temp=ch+ch
                 printToken("INC_DEC",temp,lineNum)
                 temp=""
-                # continue
             elif OneRight == '=':
                 temp=ch+OneRight
                 printToken("ASGN_OPT",temp,lineNum)
@@ -122,10 +117,20 @@ def main():
                 temp = ch + OneRight
                 printToken("RO", temp, lineNum)
                 temp = ""
-            else:
+            elif ch != '!':
                 f.seek(-1,1)
                 printToken("RO", str(ch), lineNum)
 
+        # check for LO
+        if ch in ['&', '|', '!']:
+            OneRight = str(f.read(1), 'utf-8')
+            if ch != '!' and ch == OneRight:
+                temp = ch + OneRight
+                printToken("LO", temp, lineNum)
+                temp = ""
+            elif ch == '!':
+                f.seek(-1, 1)
+                printToken("LO", str(ch), lineNum)
 
     f.close()
 
