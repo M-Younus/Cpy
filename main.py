@@ -8,21 +8,24 @@ def main():
 
     global fileData
 
+    ID=[];KEYWORDS=[];INT_CONST=[];FLT_CONST=[];STR_CONST=[];CHAR_CONST=[];RO=[];ASGN_OPT=[];LO=[];
+
     temp="";lineNum=1
 
     f = open('test.txt', 'rb+')
 
-    breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
-            , '<' , '>' , '-' , '+' , '*' , '/' , '%' , ':' , ';' , '.' , '!' , '&' , '|' ]
 
-    invalidPrint=[ '=' , ' ' , '\n' , '\r' , '<' , '>' , '-' , '+' , '*' , '/' , '%' , '!' , '&' , '|' ]
+    breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
+            , '<' , '>' , '-' , '+' , '*' , '/' , '%' , ':' , ';' , '.' , '!' , '&' , '|' , '#' ]
+
+    invalidPrint=[ '=' , ' ' , '\n' , '\r' , '<' , '>' , '-' , '+' , '*' , '/' , '%' , '!' , '&' , '|' , '#' ]
 
     lex=Lexical()
 
     while True:
         ch = f.read(1)
-
         ch=str(ch,'utf-8')
+
 
         # print("current position", f.tell())
 
@@ -92,6 +95,11 @@ def main():
         else:
             temp+=str(ch)
 
+
+        if ch =='#':
+            f.readline()
+            lineNum+=1
+            continue
 
         #check for inc_DEc and add_sub and asgn
         if ch in ['+','-','*','/','%']:
