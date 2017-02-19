@@ -25,12 +25,15 @@ class IDE():
         self.outputFile.write(Main._fileData)
         self.outputFile.close()
 
-        # self.consoleT.insert(1.0,self.codeT.get('1.0',END))
-        # self.consoleT.insert(1.0, Main._fileData)
         self.consoleT.config(state=DISABLED)
 
+    def newFunc(self):
+        self.codeT.delete(1.0,END)
+        self.consoleT.config(state=NORMAL)
+        self.consoleT.delete(1.0, END)
+
     def falto(self):
-        print("falto")
+        pass
 
     def __init__(self,root):
 
@@ -50,7 +53,7 @@ class IDE():
         self.editmenu=Menu(self.menu)
 
         self.menu.add_cascade(label="File",menu=self.filemenu)
-        self.filemenu.add_command(label="New....",command=self.falto)
+        self.filemenu.add_command(label="New....",command=self.newFunc)
         self.filemenu.add_command(label="Open",command=self.falto)
         self.filemenu.add_separator()
         self.filemenu.add_command(label="Exit",command=lambda :root.quit())

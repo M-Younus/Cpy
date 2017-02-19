@@ -94,27 +94,27 @@ class Main():
             #                 break
             #     else:
             #         f.readline()
-            #         Lexical._lineNum+=1
+            #         Main._lineNum+=1
             #
             #     continue
 
 
             if ch == '#':
                 f.readline()
-                Lexical._lineNum += 1
+                Main._lineNum += 1
                 continue
 
             # check for inc_DEc and add_sub and asgn
             if ch in ['+', '-', '*', '/', '%']:
                 OneRight = str(f.read(1), 'utf-8')
                 if ch == OneRight:
-                    temp = ch + ch
-                    self.printToken("INC_DEC", temp, Main._lineNum)
-                    temp = ""
+                    Main._temp = ch + ch
+                    self.printToken("INC_DEC", Main._temp, Main._lineNum)
+                    Main._temp = ""
                 elif OneRight == '=':
-                    temp = ch + OneRight
-                    self.printToken("ASGN_OPT", temp, Main._lineNum)
-                    temp = ""
+                    Main._temp = ch + OneRight
+                    self.printToken("ASGN_OPT", Main._temp, Main._lineNum)
+                    Main._temp = ""
                 elif ch in ['+', '-']:
                     f.seek(-1, 1)
                     self.printToken("ADD_SUB", str(ch), Main._lineNum)
@@ -131,9 +131,9 @@ class Main():
             if ch in ['<', '>', '=', '!']:
                 OneRight = str(f.read(1), 'utf-8')
                 if OneRight == '=':
-                    temp = ch + OneRight
-                    self.printToken("RO", temp, Main._lineNum)
-                    temp = ""
+                    Main._temp = ch + OneRight
+                    self.printToken("RO", Main._temp, Main._lineNum)
+                    Main._temp = ""
                 elif ch == '=':
                     f.seek(-1, 1)
                     self.printToken('=', '-', Main._lineNum)
@@ -147,18 +147,18 @@ class Main():
             if ch in ['&', '|', '!']:
                 OneRight = str(f.read(1), 'utf-8')
                 if ch != '!' and ch == OneRight:
-                    temp = ch + OneRight
-                    self.printToken("LO", temp, Main._lineNum)
-                    temp = ""
+                    Main._temp = ch + OneRight
+                    self.printToken("LO", Main._temp, Main._lineNum)
+                    Main._temp = ""
                 elif ch != '!' and ch != OneRight:
                     temp = "Error at " + str(Main._lineNum) + " where value is " + str(ch)
                     Main._fileData += temp + "\n"
-                    # print("Error at " + str(Lexical._lineNum) + " where value is " + str(ch))
                     f.seek(-1, 1)
-                    temp = ""
+                    Main._temp = ""
                 elif ch == '!':
                     f.seek(-1, 1)
                     self.printToken("LO", str(ch), Main._lineNum)
+
 
     def printToken(self,CPart, VPart, line):
         string = "( " + CPart + " , " + VPart + " , " + str(line) + " )"
