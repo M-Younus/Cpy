@@ -1,17 +1,2 @@
 j!i
 hel.py
-def#hello guy
-y=6
-a+b
-#how r u
-++
---
-a*=b
-a==b
-a%h
-h&&t
-h&t
-k<=t
-k!=i
-l<m
-a&b

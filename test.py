@@ -4,7 +4,7 @@ def testMethod():
     print("do nothing")
 
 def main():
-    print("main")
+    # print("main")
 
     root=Tk()
     root.iconbitmap('icon/Cpy.ico')
@@ -38,21 +38,28 @@ def main():
     # scrollbar = Scrollbar(root)
     # scrollbar.pack(side=RIGHT, fill=Y)
 
-    # codeFrame=Frame(root,height=h2-300,bg="red")
-    # codeFrame.pack_propagate(0)
+    codeFrame=Frame(root,height=h2-300,bg="red")
+    scrollbar = Scrollbar(codeFrame)
+
+    #we able to change size of frame
+    codeFrame.pack_propagate(0)
     # codeFrame.pack(fill=X)
-    #
-    # codeT = Text(codeFrame)
+
+    codeT = Text(codeFrame,yscrollcommand=scrollbar.set,padx=10,pady=10)
+    scrollbar.config(command=codeT.yview)
+    scrollbar.pack(side="right",fill="y")
     # codeT.config(width=10,height=10)
-    # codeT.pack()
+    codeT.pack(side="left",fill="both",expand=True)
 
-    consoleFrame = Frame(root,bg="green")
-    # consoleFrame.pack_propagate(0)
-    consoleFrame.pack(fill=X,side=BOTTOM)
+    codeFrame.pack(fill=X)
 
-    consoleT=Text(consoleFrame)
-    consoleT.config(width=10,height=15)
-    consoleT.pack()
+    # consoleFrame = Frame(root,bg="green")
+    # # consoleFrame.pack_propagate(0)
+    # consoleFrame.pack(fill=X,side=BOTTOM)
+    #
+    # consoleT=Text(consoleFrame)
+    # consoleT.config(width=10,height=15)
+    # consoleT.pack()
 
     root.mainloop()
 

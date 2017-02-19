@@ -96,19 +96,19 @@ def main():
             temp+=str(ch)
 
 
-        if ch =='#':
-            OneRight = str(f.read(1), 'utf-8')
-            if OneRight == '*':
-                while True:
-                    first = str(f.read(1), 'utf-8')
-                    second = str(f.read(1), 'utf-8')
-                    if first == '*' and second == '#':
-                        break
-            else:
-                f.readline()
-                lineNum+=1
-
-            continue
+        # if ch =='#':
+        #     OneRight = str(f.read(1), 'utf-8')
+        #     if OneRight == '*':
+        #         while True:
+        #             first = str(f.read(1), 'utf-8')
+        #             second = str(f.read(1), 'utf-8')
+        #             if first == '*' and second == '#':
+        #                 break
+        #     else:
+        #         f.readline()
+        #         lineNum+=1
+        #
+        #     continue
 
 
         #check for inc_DEc and add_sub and asgn
