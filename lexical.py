@@ -34,7 +34,7 @@ class Lexical():
 
     def chk_keywords(self,temp,LN):
         if temp!="":
-            if temp in self._keywords:
+            if temp in Lexical._keywords:
                 return True
         return False
 

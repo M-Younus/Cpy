@@ -12,7 +12,7 @@ def main():
 
     temp="";lineNum=1
 
-    f = open('test.txt', 'rb+')
+    f = open('testingcode.txt', 'rb+')
 
 
     breakers=[ '(' , ')' , '[' , ']' , '{' , '}' , '=' , ',' , ' ' , '\n' , '\r'
@@ -110,6 +110,11 @@ def main():
         #
         #     continue
 
+
+        if ch =='#':
+            f.readline()
+            lineNum+=1
+            continue
 
         #check for inc_DEc and add_sub and asgn
         if ch in ['+','-','*','/','%']:

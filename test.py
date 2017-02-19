@@ -1,73 +1,71 @@
 from tkinter import *
 
-def testMethod():
-    print("do nothing")
 
-def main():
-    # print("main")
+class IDE():
 
-    root=Tk()
-    root.iconbitmap('icon/Cpy.ico')
-    root.title("Cpy")
+    def consoleOutput(self):
+        self.consoleT.config(state=NORMAL)
+        self.consoleT.delete(1.0,END)
+        self.consoleT.insert(1.0,self.codeT.get('1.0',END))
+        self.consoleT.config(state=DISABLED)
 
-    width = root.winfo_screenwidth()
-    height = root.winfo_screenheight()
-    w2=width-650
-    h2=height-300
-    root.geometry(str(w2) + "x" + str(h2))
+    def __init__(self,root):
 
-    menu=Menu(root)
-    root.config(menu=menu)
+        root.iconbitmap('icon/Cpy.ico')
+        root.title("Cpy")
 
-    filemenu=Menu(menu)
-    editmenu=Menu(menu)
+        self.width = root.winfo_screenwidth()
+        self.height = root.winfo_screenheight()
+        self.w2=self.width-650
+        self.h2=self.height-300
+        root.geometry(str(self.w2) + "x" + str(self.h2))
 
-    menu.add_cascade(label="File",menu=filemenu)
-    filemenu.add_command(label="New....",command=testMethod)
-    filemenu.add_command(label="Open",command=testMethod)
-    filemenu.add_separator()
-    filemenu.add_command(label="Exit",command=testMethod)
+        self.menu=Menu(root)
+        root.config(menu=self.menu)
 
-    menu.add_cascade(label="Edit",menu=editmenu)
-    editmenu.add_command(label="Copy",command=testMethod)
-    editmenu.add_command(label="Cut",command=testMethod)
-    editmenu.add_command(label="Paste",command=testMethod)
+        self.filemenu=Menu(self.menu)
+        self.editmenu=Menu(self.menu)
 
-    menu.add_command(label="Run",command=testMethod)
+        self.menu.add_cascade(label="File",menu=self.filemenu)
+        self.filemenu.add_command(label="New....",command=self.testMethod)
+        self.filemenu.add_command(label="Open",command=self.testMethod)
+        self.filemenu.add_separator()
+        self.filemenu.add_command(label="Exit",command=lambda :root.quit())
 
-    # codescroll = Scrollbar(root)
-    # codescroll.pack(side=RIGHT, fill=Y)
+        self.menu.add_cascade(label="Edit",menu=self.editmenu)
+        self.editmenu.add_command(label="Copy",command=self.testMethod)
+        self.editmenu.add_command(label="Cut",command=self.testMethod)
+        self.editmenu.add_command(label="Paste",command=self.testMethod)
 
-    codeFrame=Frame(root,height=h2-300,bg="red")
-    codescroll = Scrollbar(codeFrame)
+        self.menu.add_command(label="Run",command=self.testMethod)
 
-    #we able to change size of frame
-    codeFrame.pack_propagate(0)
-    # codeFrame.pack(fill=X)
+        self.codeFrame=Frame(root,height=self.h2-300,bg="red")
+        self.codescroll = Scrollbar(self.codeFrame)
 
-    codeT = Text(codeFrame,yscrollcommand=codescroll.set,padx=10,pady=10)
-    codescroll.config(command=codeT.yview)
-    codescroll.pack(side="right",fill="y")
-    # codeT.config(width=10,height=10)
-    codeT.pack(side="left",fill="both",expand=True)
+        #we able to change size of frame
+        self.codeFrame.pack_propagate(0)
 
-    codeFrame.pack(fill=X)
+        self.codeT = Text(self.codeFrame,yscrollcommand=self.codescroll.set,padx=10,pady=10)
+        self.codescroll.config(command=self.codeT.yview)
+        self.codescroll.pack(side="right",fill="y")
+        self.codeT.pack(side="left",fill="both",expand=True)
 
-    consoleFrame = Frame(root,bg="green")
-    consolescroll = Scrollbar(consoleFrame)
-    # # consoleFrame.pack_propagate(0)
-    # consoleFrame.pack(fill=X,side=BOTTOM)
-    #
+        self.codeFrame.pack(fill=X)
 
-    consoleT=Text(consoleFrame,yscrollcommand=consolescroll.set,padx=10,pady=10)
-    consolescroll.config(command=consoleT.yview)
-    consolescroll.pack(side="right", fill="y")
-    # consoleT.config(width=10,height=15)
-    # consoleT.config(state=DISABLED)
-    consoleT.pack(side="left",fill="both",expand=True)
+        self.consoleFrame = Frame(root,bg="green")
+        self.consolescroll = Scrollbar(self.consoleFrame)
 
-    consoleFrame.pack(fill=X)
+        self.consoleT=Text(self.consoleFrame,yscrollcommand=self.consolescroll.set,padx=10,pady=10)
+        self.consolescroll.config(command=self.consoleT.yview)
+        self.consolescroll.pack(side="right", fill="y")
+        self.consoleT.pack(side="left",fill="both",expand=True)
 
-    root.mainloop()
+        self.consoleFrame.pack(fill=X)
 
-if __name__== "__main__": main()
+
+
+root=Tk()
+
+ObjIde=IDE(root)
+
+root.mainloop()
