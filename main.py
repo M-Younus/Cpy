@@ -10,13 +10,15 @@ class Main():
     _temp = "";_lineNum = 1;_codeFile="code.txt";_outputFile="output.txt";_fileData=""
 
     _breakers = ['(', ')', '[', ']', '{', '}', '=', ',', ' ', '\n', '\r'
-        , '<', '>', '-', '+', '*', '/', '%', ':', ';', '.', '!', '&', '|', '#']
+        , '<', '>', '-', '+', '*', '/', '%', ':', ';', '.', '!', '&', '|', '#' , '"']
 
-    _invalidPrint = ['=', ' ', '\n', '\r', '<', '>', '-', '+', '*', '/', '%', '!', '&', '|', '#']
+    _invalidPrint = ['=', ' ', '\n', '\r', '<', '>', '-', '+', '*', '/', '%', '!', '&', '|', '#' , '"']
 
 
     def mainMethod(self,f):
         lex = Lexical()
+
+        self.flag=0
 
         while True:
             ch = str(f.read(1), 'utf-8')
@@ -47,6 +49,9 @@ class Main():
 
             if ch in Main._breakers:
 
+                if ch =='"' and self.flag==1:
+                    Main._temp+=ch
+
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
                     self.printToken("FLT_CONST", Main._temp, Main._lineNum)
                     Main._temp = ""
@@ -64,6 +69,8 @@ class Main():
                     Main._temp = ""
 
                 elif lex.chk_STR_CONST(Main._temp, Main._lineNum):
+                    self.flag=0
+                    ch=''
                     self.printToken("STR_CONST", Main._temp, Main._lineNum)
                     Main._temp = ""
 
@@ -71,7 +78,7 @@ class Main():
                     self.printToken("CHAR_CONST", Main._temp, Main._lineNum)
                     Main._temp = ""
 
-                if ch not in Main._invalidPrint:
+                if ch not in Main._invalidPrint and ch!='':
                     self.printToken(str(ch), '-', Main._lineNum)
                 if ch == '\n':
                     Main._lineNum += 1
@@ -83,6 +90,29 @@ class Main():
 
             else:
                 Main._temp += str(ch)
+
+            if ch == '"':
+                Main._temp+=ch
+                while True:
+                    # f.seek(-1,1)
+                    # OneLeft = str(f.read(1), 'utf-8')
+                    # Main._temp+=OneLeft
+                    ch = str(f.read(1), 'utf-8')
+                    if ch not in ['"','\n']:
+                        Main._temp+=ch
+                    elif ch == '"':
+                        f.seek(-2, 1)
+                        OneLeft = str(f.read(1), 'utf-8')
+                        if OneLeft == '\\':
+                            Main._temp += ch
+                        else:
+                            self.flag = 1
+                            # f.seek(1, 1)
+                            break
+                    elif ch == '\n':
+                        f.seek(-1, 1)
+                        break
+
 
             # if ch =='#':
             #     OneRight = str(f.read(1), 'utf-8')
@@ -165,7 +195,3 @@ class Main():
         print(string)
         Main._fileData += string + "\n"
 
-
-# root=Tk()
-# ObjMain=Main(root)
-# root.mainloop()

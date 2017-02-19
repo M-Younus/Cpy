@@ -8,19 +8,25 @@ class IDE():
 
         objMain=Main()
 
+        # Main._fileData=""
+
         self.consoleT.config(state=NORMAL)
         self.consoleT.delete(1.0,END)
 
+        #open file and write all the IDE code text area content
         self.codeFile = open(Main._codeFile, 'w')
         self.codeFile.write(self.codeT.get('1.0', END))
         self.codeFile.close()
 
+        #open file for reading
         self.codeFile = open(Main._codeFile, 'rb+')
         objMain.mainMethod(self.codeFile)
         self.codeFile.close()
 
+        #write tokens to console area
         self.consoleT.insert(1.0, Main._fileData)
 
+        #write tokens to test file
         self.outputFile = open(Main._outputFile, 'w')
         self.outputFile.write(Main._fileData)
         self.outputFile.close()
@@ -32,8 +38,11 @@ class IDE():
         self.consoleT.config(state=NORMAL)
         self.consoleT.delete(1.0, END)
 
+
     def falto(self):
         pass
+
+
 
     def __init__(self,root):
 
