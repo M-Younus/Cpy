@@ -35,31 +35,38 @@ def main():
 
     menu.add_command(label="Run",command=testMethod)
 
-    # scrollbar = Scrollbar(root)
-    # scrollbar.pack(side=RIGHT, fill=Y)
+    # codescroll = Scrollbar(root)
+    # codescroll.pack(side=RIGHT, fill=Y)
 
     codeFrame=Frame(root,height=h2-300,bg="red")
-    scrollbar = Scrollbar(codeFrame)
+    codescroll = Scrollbar(codeFrame)
 
     #we able to change size of frame
     codeFrame.pack_propagate(0)
     # codeFrame.pack(fill=X)
 
-    codeT = Text(codeFrame,yscrollcommand=scrollbar.set,padx=10,pady=10)
-    scrollbar.config(command=codeT.yview)
-    scrollbar.pack(side="right",fill="y")
+    codeT = Text(codeFrame,yscrollcommand=codescroll.set,padx=10,pady=10)
+    codescroll.config(command=codeT.yview)
+    codescroll.pack(side="right",fill="y")
     # codeT.config(width=10,height=10)
     codeT.pack(side="left",fill="both",expand=True)
 
     codeFrame.pack(fill=X)
 
-    # consoleFrame = Frame(root,bg="green")
+    consoleFrame = Frame(root,bg="green")
+    consolescroll = Scrollbar(consoleFrame)
     # # consoleFrame.pack_propagate(0)
     # consoleFrame.pack(fill=X,side=BOTTOM)
     #
-    # consoleT=Text(consoleFrame)
+
+    consoleT=Text(consoleFrame,yscrollcommand=consolescroll.set,padx=10,pady=10)
+    consolescroll.config(command=consoleT.yview)
+    consolescroll.pack(side="right", fill="y")
     # consoleT.config(width=10,height=15)
-    # consoleT.pack()
+    # consoleT.config(state=DISABLED)
+    consoleT.pack(side="left",fill="both",expand=True)
+
+    consoleFrame.pack(fill=X)
 
     root.mainloop()
 
