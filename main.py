@@ -97,9 +97,19 @@ def main():
 
 
         if ch =='#':
-            f.readline()
-            lineNum+=1
+            OneRight = str(f.read(1), 'utf-8')
+            if OneRight == '*':
+                while True:
+                    first = str(f.read(1), 'utf-8')
+                    second = str(f.read(1), 'utf-8')
+                    if first == '*' and second == '#':
+                        break
+            else:
+                f.readline()
+                lineNum+=1
+
             continue
+
 
         #check for inc_DEc and add_sub and asgn
         if ch in ['+','-','*','/','%']:
