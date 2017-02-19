@@ -1,13 +1,36 @@
 from tkinter import *
 
+from main import Main
 
 class IDE():
 
-    def consoleOutput(self):
+    def Run(self):
+
+        objMain=Main()
+
         self.consoleT.config(state=NORMAL)
         self.consoleT.delete(1.0,END)
-        self.consoleT.insert(1.0,self.codeT.get('1.0',END))
+
+        self.codeFile = open(Main._codeFile, 'w')
+        self.codeFile.write(self.codeT.get('1.0', END))
+        self.codeFile.close()
+
+        self.codeFile = open(Main._codeFile, 'rb+')
+        objMain.mainMethod(self.codeFile)
+        self.codeFile.close()
+
+        self.consoleT.insert(1.0, Main._fileData)
+
+        self.outputFile = open(Main._outputFile, 'w')
+        self.outputFile.write(Main._fileData)
+        self.outputFile.close()
+
+        # self.consoleT.insert(1.0,self.codeT.get('1.0',END))
+        # self.consoleT.insert(1.0, Main._fileData)
         self.consoleT.config(state=DISABLED)
+
+    def falto(self):
+        print("falto")
 
     def __init__(self,root):
 
@@ -27,17 +50,17 @@ class IDE():
         self.editmenu=Menu(self.menu)
 
         self.menu.add_cascade(label="File",menu=self.filemenu)
-        self.filemenu.add_command(label="New....",command=self.testMethod)
-        self.filemenu.add_command(label="Open",command=self.testMethod)
+        self.filemenu.add_command(label="New....",command=self.falto)
+        self.filemenu.add_command(label="Open",command=self.falto)
         self.filemenu.add_separator()
         self.filemenu.add_command(label="Exit",command=lambda :root.quit())
 
         self.menu.add_cascade(label="Edit",menu=self.editmenu)
-        self.editmenu.add_command(label="Copy",command=self.testMethod)
-        self.editmenu.add_command(label="Cut",command=self.testMethod)
-        self.editmenu.add_command(label="Paste",command=self.testMethod)
+        self.editmenu.add_command(label="Copy",command=self.falto)
+        self.editmenu.add_command(label="Cut",command=self.falto)
+        self.editmenu.add_command(label="Paste",command=self.falto)
 
-        self.menu.add_command(label="Run",command=self.testMethod)
+        self.menu.add_command(label="Run",command=self.Run)
 
         self.codeFrame=Frame(root,height=self.h2-300,bg="red")
         self.codescroll = Scrollbar(self.codeFrame)

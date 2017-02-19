@@ -25,6 +25,13 @@ import re
 temp="gfg#*gfgf"
 print(temp)
 
+f=open("falto.txt",'w')
+f.write("dfd")
+f.close()
+f=open("falto.txt",'r')
+print(f.read())
+f.close()
+
 # ch=f.read(1)
 # ch=f.read(1)
 # ch=f.read(1)

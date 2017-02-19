@@ -1,0 +1,9 @@
+a=65
+def main():{
+    a=65,b==c
+    g=6.5
+    while(a<==b):{
+        'c' "abc\nxy z" 24_57a.987.a76
+         a_b_c++
+    }
+}
