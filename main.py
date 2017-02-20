@@ -15,10 +15,14 @@ class Main():
     _invalidPrint = ['=', ' ', '\n', '\r', '<', '>', '-', '+', '*', '/', '%', '!', '&', '|', '#' , '"']
 
 
+    def __init__(self):
+        Main._fileData=""
+        Main._lineNum=1
+
     def mainMethod(self,f):
         lex = Lexical()
 
-        self.flagStr=0
+        self.flagStr=0;self.flagChar=0
 
         while True:
             ch = str(f.read(1), 'utf-8')
@@ -49,7 +53,10 @@ class Main():
 
             if ch in Main._breakers:
 
-                if ch =='"' and self.flagStr==1:
+                if ch ==' " ' and self.flagStr==1:
+                    Main._temp+=ch
+
+                if ch ==" ' " and self.flagChar==1:
                     Main._temp+=ch
 
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
@@ -75,6 +82,8 @@ class Main():
                     Main._temp = ""
 
                 elif lex.chk_CHAR_CONST(Main._temp, Main._lineNum):
+                    self.flagChar = 0
+                    ch = ''
                     self.printToken("CHAR_CONST", Main._temp, Main._lineNum)
                     Main._temp = ""
 
@@ -108,6 +117,24 @@ class Main():
                         else:
                             self.flagStr = 1
                             # f.seek(1, 1)
+                            break
+                    elif ch == '\n':
+                        f.seek(-1, 1)
+                        break
+
+            if ch == " ' ":
+                Main._temp+=ch
+                while True:
+                    ch = str(f.read(1), 'utf-8')
+                    if ch not in [" ' ",'\n']:
+                        Main._temp+=ch
+                    elif ch == " ' ":
+                        f.seek(-2, 1)
+                        OneLeft = str(f.read(1), 'utf-8')
+                        if OneLeft == '\\':
+                            Main._temp += ch
+                        else:
+                            self.flagChar = 1
                             break
                     elif ch == '\n':
                         f.seek(-1, 1)

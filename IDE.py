@@ -8,7 +8,8 @@ class IDE():
 
         self.objMain=Main()
 
-        Main._fileData=""
+        # Main._fileData=""
+        # Main._lineNum=0
 
         # self.consoleT.config(state=NORMAL)
         self.consoleT.delete(1.0,END)

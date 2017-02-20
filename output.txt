@@ -27,12 +27,8 @@
 ( : , - , 6 )
 ( { , - , 6 )
 ( CHAR_CONST , 'c' , 7 )
-( STR_CONST , "abc\nxyz" , 7 )
-( . , - , 7 )
-Error at 7 where value is 24_57a
-( INT_CONST , 987 , 7 )
-( . , - , 7 )
-Error at 7 where value is a76
+Error at 7 where value is "abcxyz
+Error at 8 where value is " 24_57a.987.a76
 ( ID , a_b_c , 8 )
 ( INC_DEC , ++ , 8 )
 ( } , - , 9 )
