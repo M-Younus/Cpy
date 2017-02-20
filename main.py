@@ -10,9 +10,9 @@ class Main():
     _temp = "";_lineNum = 1;_codeFile="code.txt";_outputFile="output.txt";_fileData=""
 
     _breakers = ['(', ')', '[', ']', '{', '}', '=', ',', ' ', '\n', '\r'
-        , '<', '>', '-', '+', '*', '/', '%', ':', ';', '.', '!', '&', '|', '#' , '"' , '\'']
+        , '<', '>', '-', '+', '*', '/', '%', ':', ';', '.', '!', '&', '|', '#' , '"' , '\'' , '\t']
 
-    _invalidPrint = ['=', ' ', '\n', '\r', '<', '>', '-', '+', '*', '/', '%', '!', '&', '|', '#' , '"' , '\'']
+    _invalidPrint = ['=', ' ', '\n', '\r', '<', '>', '-', '+', '*', '/', '%', '!', '&', '|', '#' , '"' , '\'' , '\t']
 
 
     def __init__(self):
@@ -201,24 +201,28 @@ class Main():
                 elif ch != '!':
                     f.seek(-1, 1)
                     self.printToken("RO", str(ch), Main._lineNum)
-                else:
+                elif ch == '!':
                     f.seek(-1, 1)
+                    self.printToken("LO", str(ch), Main._lineNum)
+                # else:
+                #     f.seek(-1, 1)
 
             # check for LO
-            if ch in ['&', '|', '!']:
+            # if ch in ['&', '|', '!']:
+            if ch in ['&', '|']:
                 OneRight = str(f.read(1), 'utf-8')
-                if ch != '!' and ch == OneRight:
+                if ch == OneRight:
                     Main._temp = ch + OneRight
                     self.printToken("LO", Main._temp, Main._lineNum)
                     Main._temp = ""
-                elif ch != '!' and ch != OneRight:
+                elif ch != OneRight:
                     temp = "Error at " + str(Main._lineNum) + " where value is " + str(ch)
                     Main._fileData += temp + "\n"
                     f.seek(-1, 1)
                     Main._temp = ""
-                elif ch == '!':
-                    f.seek(-1, 1)
-                    self.printToken("LO", str(ch), Main._lineNum)
+                # elif ch == '!':
+                #     f.seek(-1, 1)
+                #     self.printToken("LO", str(ch), Main._lineNum)
 
 
     def printToken(self,CPart, VPart, line):

@@ -1,1 +1,13 @@
-'c'"abc"
+class Main():{
+	
+	def main():{
+		a=5;b=6;c='';temp="hello"
+		a++;
+		if a<=b:{
+			#here i negate a
+			b!=t%y#=!a&&c;
+		}
+	}
+
+}
+
