@@ -41,8 +41,9 @@ class Main():
                     continue
                 else:
                     f.seek(-2, 1)
-                    ch = f.read(1)
-                    ch = str(ch, 'utf-8')
+                    # ch = f.read(1)
+                    # ch = str(ch, 'utf-8')
+                    ch = str(f.read(1), 'utf-8')
 
             elif ch == '+' or ch == '-':
                 OneRight = str(f.read(1), 'utf-8')
