@@ -6,6 +6,8 @@ class Lexical():
     _keywords = ['False', 'class', 'finally', 'is', 'return', 'None', 'continue', 'for', 'True',
                      'def', 'while', 'elif', 'if', 'else', 'break']
 
+    _EscKeywords=['t','r','b','n']
+
     def chk_ID(self,temp,LN):
 
         state=0;FS=1
@@ -112,7 +114,7 @@ class Lexical():
                 if temp[0]=='\'' and temp[1]=='\\' and temp[2] in ['\'','"','\\'] and temp[3]=='\'':
                     return True
             elif len(temp)==5:
-                if temp[0]=='\'' and temp[1]=='\\' and temp[2]=='\\' and temp[4]=='\'':
+                if temp[0]=='\'' and temp[1]=='\\' and temp[2]=='\\' and temp[3] in Lexical._EscKeywords   and temp[4]=='\'':
                     return True
         return False
 

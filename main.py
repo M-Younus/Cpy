@@ -58,7 +58,7 @@ class Main():
 
                 if ch == '\'' and self.flagChar==1:
                     Main._temp+=ch
-                    # ch=''
+                    ch=''
 
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
                     self.printToken("FLT_CONST", Main._temp, Main._lineNum)
