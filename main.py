@@ -18,7 +18,7 @@ class Main():
     def mainMethod(self,f):
         lex = Lexical()
 
-        self.flag=0
+        self.flagStr=0
 
         while True:
             ch = str(f.read(1), 'utf-8')
@@ -49,7 +49,7 @@ class Main():
 
             if ch in Main._breakers:
 
-                if ch =='"' and self.flag==1:
+                if ch =='"' and self.flagStr==1:
                     Main._temp+=ch
 
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
@@ -69,7 +69,7 @@ class Main():
                     Main._temp = ""
 
                 elif lex.chk_STR_CONST(Main._temp, Main._lineNum):
-                    self.flag=0
+                    self.flagStr=0
                     ch=''
                     self.printToken("STR_CONST", Main._temp, Main._lineNum)
                     Main._temp = ""
@@ -106,7 +106,7 @@ class Main():
                         if OneLeft == '\\':
                             Main._temp += ch
                         else:
-                            self.flag = 1
+                            self.flagStr = 1
                             # f.seek(1, 1)
                             break
                     elif ch == '\n':
