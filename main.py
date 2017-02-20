@@ -114,25 +114,26 @@ class Main():
                         break
 
 
-            # if ch =='#':
-            #     OneRight = str(f.read(1), 'utf-8')
-            #     if OneRight == '*':
-            #         while True:
-            #             first = str(f.read(1), 'utf-8')
-            #             second = str(f.read(1), 'utf-8')
-            #             if first == '*' and second == '#':
-            #                 break
-            #     else:
-            #         f.readline()
-            #         Main._lineNum+=1
-            #
-            #     continue
+            if ch =='#':
+                OneRight = str(f.read(1), 'utf-8')
+                if OneRight == '*':
+                    while True:
+                        first = str(f.read(1), 'utf-8')
+                        if not first:
+                            break
+                        if first == '*':
+                            second = str(f.read(1), 'utf-8')
+                            if second == '#':
+                                break
+                        elif first == '\n':
+                            Main._lineNum+=1
+                else:
+                    f.readline()
+                    Main._lineNum+=1
 
-
-            if ch == '#':
-                f.readline()
-                Main._lineNum += 1
                 continue
+
+
 
             # check for inc_DEc and add_sub and asgn
             if ch in ['+', '-', '*', '/', '%']:
