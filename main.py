@@ -10,9 +10,9 @@ class Main():
     _temp = "";_lineNum = 1;_codeFile="code.txt";_outputFile="output.txt";_fileData=""
 
     _breakers = ['(', ')', '[', ']', '{', '}', '=', ',', ' ', '\n', '\r'
-        , '<', '>', '-', '+', '*', '/', '%', ':', ';', '.', '!', '&', '|', '#' , '"']
+        , '<', '>', '-', '+', '*', '/', '%', ':', ';', '.', '!', '&', '|', '#' , '"' , '\'']
 
-    _invalidPrint = ['=', ' ', '\n', '\r', '<', '>', '-', '+', '*', '/', '%', '!', '&', '|', '#' , '"']
+    _invalidPrint = ['=', ' ', '\n', '\r', '<', '>', '-', '+', '*', '/', '%', '!', '&', '|', '#' , '"' , '\'']
 
 
     def __init__(self):
@@ -53,10 +53,10 @@ class Main():
 
             if ch in Main._breakers:
 
-                if ch ==' " ' and self.flagStr==1:
+                if ch =='"' and self.flagStr==1:
                     Main._temp+=ch
 
-                if ch ==" ' " and self.flagChar==1:
+                if ch == '\'' and self.flagChar==1:
                     Main._temp+=ch
 
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
@@ -122,13 +122,13 @@ class Main():
                         f.seek(-1, 1)
                         break
 
-            if ch == " ' ":
+            if ch == '\'':
                 Main._temp+=ch
                 while True:
                     ch = str(f.read(1), 'utf-8')
-                    if ch not in [" ' ",'\n']:
+                    if ch not in ['\'','\n']:
                         Main._temp+=ch
-                    elif ch == " ' ":
+                    elif ch == '\'':
                         f.seek(-2, 1)
                         OneLeft = str(f.read(1), 'utf-8')
                         if OneLeft == '\\':
