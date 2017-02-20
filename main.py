@@ -58,6 +58,7 @@ class Main():
 
                 if ch == '\'' and self.flagChar==1:
                     Main._temp+=ch
+                    # ch=''
 
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
                     self.printToken("FLT_CONST", Main._temp, Main._lineNum)
@@ -135,6 +136,7 @@ class Main():
                         f.seek(-2, 1)
                         OneLeft = str(f.read(1), 'utf-8')
                         if OneLeft == '\\':
+                            f.seek(1,1)
                             Main._temp += ch
                         else:
                             self.flagChar = 1
