@@ -27,9 +27,9 @@
 ( : , - , 5 )
 ( { , - , 5 )
 ( CHAR_CONST , 'c' , 6 )
-( STR_CONST , "abc\nx yz" , 6 )
-( . , - , 6 )
+( STR_CONST , "abc\nxyz" , 6 )
 Error at 6 where value is 24_57a
+( . , - , 6 )
 ( INT_CONST , 987 , 6 )
 ( . , - , 6 )
 Error at 6 where value is a76

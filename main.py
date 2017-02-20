@@ -87,15 +87,22 @@ class Main():
                     self.printToken("CHAR_CONST", Main._temp, Main._lineNum)
                     Main._temp = ""
 
-                if ch not in Main._invalidPrint and ch!='':
-                    self.printToken(str(ch), '-', Main._lineNum)
-                if ch == '\n':
-                    Main._lineNum += 1
 
                 elif Main._temp != "":
                     Main._temp = "Error at " + str(Main._lineNum) + " where value is " + Main._temp
                     Main._fileData += Main._temp + "\n"
                     Main._temp = ""
+
+                if ch not in Main._invalidPrint and ch!='':
+                    self.printToken(str(ch), '-', Main._lineNum)
+                if ch == '\n':
+                    Main._lineNum += 1
+
+
+                # elif Main._temp != "":
+                #     Main._temp = "Error at " + str(Main._lineNum) + " where value is " + Main._temp
+                #     Main._fileData += Main._temp + "\n"
+                #     Main._temp = ""
 
             else:
                 Main._temp += str(ch)
@@ -103,9 +110,6 @@ class Main():
             if ch == '"':
                 Main._temp+=ch
                 while True:
-                    # f.seek(-1,1)
-                    # OneLeft = str(f.read(1), 'utf-8')
-                    # Main._temp+=OneLeft
                     ch = str(f.read(1), 'utf-8')
                     if ch not in ['"','\n']:
                         Main._temp+=ch
@@ -116,7 +120,6 @@ class Main():
                             Main._temp += ch
                         else:
                             self.flagStr = 1
-                            # f.seek(1, 1)
                             break
                     elif ch == '\n':
                         f.seek(-1, 1)
