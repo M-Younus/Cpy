@@ -54,7 +54,8 @@ class IDE():
         self.height = root.winfo_screenheight()
         self.w2=self.width-650
         self.h2=self.height-300
-        root.geometry(str(self.w2) + "x" + str(self.h2))
+        # root.geometry(str(self.w2) + "x" + str(self.h2))
+        root.geometry("700x650")
 
         self.menu=Menu(root)
         root.config(menu=self.menu)
