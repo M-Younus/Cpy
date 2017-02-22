@@ -1,4 +1,1 @@
-( ID , c , 1 )
-( = , - , 1 )
-( CHAR_CONST , '\'' , 1 )
-( STR_CONST , "dfd" , 1 )
+( STR_CONST , "gfg\\fgf" , 1 )

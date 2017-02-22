@@ -76,7 +76,8 @@ class IDE():
 
         self.menu.add_command(label="Run",command=self.Run)
 
-        self.codeFrame=Frame(root,height=self.h2-300,bg="red")
+        # self.codeFrame=Frame(root,height=self.h2-300,bg="red")
+        self.codeFrame = Frame(root, height=400, bg="red")
         self.codescroll = Scrollbar(self.codeFrame)
 
         #we able to change size of frame
