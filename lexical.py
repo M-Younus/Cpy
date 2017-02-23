@@ -104,9 +104,9 @@ class Lexical():
 
     def chk_CHAR_CONST(self,temp,LN):
         if temp!="":
-            # if len(temp)==2:
-            #     if temp[0]=='\'' and temp[1]=='\'':
-            #         return True
+            if len(temp)==2:
+                if temp[0]=='\'' and temp[1]=='\'':
+                    return True
             if len(temp)==3:
                 if temp[0]=='\'' and temp[2]=='\'':
                     return True

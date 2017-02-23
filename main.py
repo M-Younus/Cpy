@@ -165,7 +165,10 @@ class Main():
                 Main._temp+=ch
                 char1 = str(f.read(1), 'utf-8')
                 char2 = str(f.read(1), 'utf-8')
-                if char1=='\\':
+                if char1=='\'':
+                    f.seek(-1,1)
+                    Main._temp += char1
+                elif char1=='\\':
                     char3 = str(f.read(1), 'utf-8')
                     if char2=='\'':
                         Main._temp += char2 + char3
@@ -177,8 +180,9 @@ class Main():
                         Main._lineNum+=1
                 elif char2!='\n':
                     Main._temp += char1 + char2
-                if char2 == '\n':
+                elif char2 == '\n':
                     Main._lineNum += 1
+
 
                 if lex.chk_CHAR_CONST(Main._temp, Main._lineNum):
                     # self.flagChar = 0
