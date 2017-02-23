@@ -22,7 +22,7 @@ class Main():
     def mainMethod(self,f):
         lex = Lexical()
 
-        self.flagStr=0;self.flagChar=0
+        self.flagStr=0;self.flagChar=0;self.flagFloat=0
 
         while True:
             ch = str(f.read(1), 'utf-8')
@@ -46,21 +46,38 @@ class Main():
             #         ch = str(f.read(1), 'utf-8')
 
             if ch == '.':
-                if temp!="":
+                if self.flagFloat:
+                    if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
+                        self.printToken("FLT_CONST", Main._temp, Main._lineNum)
+                        f.seek(-1,1)
+                        Main._temp = ""
+                        self.flagFloat=0
+                        continue
+                elif Main._temp=="":
+                    OneRight = str(f.read(1), 'utf-8')
+                    if re.match("[0-9]",OneRight):
+                        self.flagFloat=1
+                        Main._temp+=ch+OneRight
+                        continue
+                    else:
+                        f.seek(-1,1)
+                elif Main._temp!="":
                     f.seek(-2, 1)
                     OneLeft = str(f.read(1), 'utf-8')
-                    f.seek(1,1)
-                    if not (re.match("[0-9]",OneLeft)) and OneLeft not in ['+','-']:
-
-
-                elif temp=="":
-                    Main._temp += ch
-                    continue
+                    f.seek(1, 1)
+                    OneRight = str(f.read(1), 'utf-8')
+                    if (re.match("[0-9]", OneLeft) or OneLeft in ['+', '-']) and re.match("[0-9]", OneRight):
+                        self.flagFloat=1
+                        Main._temp += ch+OneRight
+                        continue
+                    else:
+                        f.seek(-1,1)
 
             elif ch == '+' or ch == '-':
                 OneRight = str(f.read(1), 'utf-8')
-                f.seek(-1, 1)
-                if re.match("[0-9]", OneRight) or OneRight == '.':
+                TwoRight = str(f.read(1), 'utf-8')
+                f.seek(-2, 1)
+                if re.match("[0-9]", OneRight) or re.match("[0-9]", TwoRight):
                     Main._temp += ch
                     continue
 
@@ -75,6 +92,7 @@ class Main():
 
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
                     self.printToken("FLT_CONST", Main._temp, Main._lineNum)
+                    self.flagFloat=0
                     Main._temp = ""
 
                 if lex.chk_keywords(Main._temp, Main._lineNum):
