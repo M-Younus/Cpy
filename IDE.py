@@ -8,10 +8,6 @@ class IDE():
 
         self.objMain=Main()
 
-        # Main._fileData=""
-        # Main._lineNum=0
-
-        # self.consoleT.config(state=NORMAL)
         self.consoleT.delete(1.0,END)
 
         #open file and write all the IDE code text area content
@@ -32,17 +28,14 @@ class IDE():
         self.outputFile.write(Main._fileData)
         self.outputFile.close()
 
-        # self.consoleT.config(state=DISABLED)
 
     def newFunc(self):
         self.codeT.delete(1.0,END)
-        # self.consoleT.config(state=NORMAL)
         self.consoleT.delete(1.0, END)
 
 
     def falto(self):
         pass
-
 
 
     def __init__(self,root):
@@ -54,7 +47,6 @@ class IDE():
         self.height = root.winfo_screenheight()
         self.w2=self.width-650
         self.h2=self.height-300
-        # root.geometry(str(self.w2) + "x" + str(self.h2))
         root.geometry("700x650")
 
         self.menu=Menu(root)
@@ -76,7 +68,6 @@ class IDE():
 
         self.menu.add_command(label="Run",command=self.Run)
 
-        # self.codeFrame=Frame(root,height=self.h2-300,bg="red")
         self.codeFrame = Frame(root, height=400, bg="red")
         self.codescroll = Scrollbar(self.codeFrame)
 

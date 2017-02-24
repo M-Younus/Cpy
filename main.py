@@ -30,20 +30,6 @@ class Main():
             if not ch: break
 
             # working for separation of float and ID
-            # if ch == '.':
-            #     f.seek(-2, 1)
-            #     OneLeft = str(f.read(1), 'utf-8')
-            #     f.seek(1, 1)
-            #     OneRight = str(f.read(1), 'utf-8')
-            #     if (re.match("[0-9]", OneLeft) or OneLeft in ['+', '-']) and re.match("[0-9]", OneRight):
-            #         f.seek(-1, 1)
-            #         Main._temp += ch
-            #         continue
-            #     else:
-            #         f.seek(-2, 1)
-            #         # ch = f.read(1)
-            #         # ch = str(ch, 'utf-8')
-            #         ch = str(f.read(1), 'utf-8')
 
             if ch == '.':
                 if self.flagFloat:
@@ -86,9 +72,6 @@ class Main():
                 if ch =='"' and self.flagStr==1:
                     Main._temp+=ch
 
-                # if ch == '\'' and self.flagChar==1:
-                #     Main._temp+=ch
-                #     ch=''
 
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
                     self.printToken("FLT_CONST", Main._temp, Main._lineNum)
@@ -96,7 +79,6 @@ class Main():
                     Main._temp = ""
 
                 if lex.chk_keywords(Main._temp, Main._lineNum):
-                    # self.printToken("Keyword", Main._temp, Main._lineNum)
                     self.printToken(Main._temp,"-", Main._lineNum)
                     Main._temp = ""
 
@@ -114,13 +96,6 @@ class Main():
                     self.printToken("STR_CONST", Main._temp[1:-1], Main._lineNum)
                     Main._temp = ""
 
-                # elif lex.chk_CHAR_CONST(Main._temp, Main._lineNum):
-                #     self.flagChar = 0
-                #     ch = ''
-                #     self.printToken("CHAR_CONST", Main._temp, Main._lineNum)
-                #     Main._temp = ""
-
-
                 elif Main._temp != "":
                     Main._temp = "Error at " + str(Main._lineNum) + " where value is " + Main._temp
                     Main._fileData += Main._temp + "\n"
@@ -131,11 +106,6 @@ class Main():
                 if ch == '\n':
                     Main._lineNum += 1
 
-
-                # elif Main._temp != "":
-                #     Main._temp = "Error at " + str(Main._lineNum) + " where value is " + Main._temp
-                #     Main._fileData += Main._temp + "\n"
-                #     Main._temp = ""
 
             else:
                 Main._temp += str(ch)
@@ -165,9 +135,7 @@ class Main():
                 Main._temp+=ch
                 char1 = str(f.read(1), 'utf-8')
                 char2 = str(f.read(1), 'utf-8')
-                # if char1=='\'':
-                #     f.seek(-1,1)
-                #     Main._temp += char1
+
                 if char1=='\\':
                     char3 = str(f.read(1), 'utf-8')
                     if char2=='\'':
@@ -185,29 +153,12 @@ class Main():
 
 
                 if lex.chk_CHAR_CONST(Main._temp, Main._lineNum):
-                    # self.flagChar = 0
-                    # ch = ''
                     self.printToken("CHAR_CONST", Main._temp[1:-1], Main._lineNum)
                     Main._temp = ""
                 else:
                     Main._temp = "Error at " + str(Main._lineNum) + " where value is " + Main._temp
                     Main._fileData += Main._temp + "\n"
                     Main._temp = ""
-
-                # if ch not in ['\'','\n']:
-                #     Main._temp+=ch
-                # elif ch == '\'':
-                #     f.seek(-2, 1)
-                #     OneLeft = str(f.read(1), 'utf-8')
-                #     if OneLeft == '\\':
-                #         f.seek(1,1)
-                #         Main._temp += ch
-                #     else:
-                #         self.flagChar = 1
-                #         break
-                # elif ch == '\n':
-                #     f.seek(-1, 1)
-                #     break
 
 
             if ch =='#':
@@ -270,11 +221,8 @@ class Main():
                 elif ch == '!':
                     f.seek(-1, 1)
                     self.printToken("LO", str(ch), Main._lineNum)
-                # else:
-                #     f.seek(-1, 1)
 
             # check for LO
-            # if ch in ['&', '|', '!']:
             if ch in ['&', '|']:
                 OneRight = str(f.read(1), 'utf-8')
                 if ch == OneRight:
@@ -286,9 +234,6 @@ class Main():
                     Main._fileData += temp + "\n"
                     f.seek(-1, 1)
                     Main._temp = ""
-                # elif ch == '!':
-                #     f.seek(-1, 1)
-                #     self.printToken("LO", str(ch), Main._lineNum)
 
 
     def printToken(self,CPart, VPart, line):
