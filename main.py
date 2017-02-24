@@ -111,7 +111,7 @@ class Main():
                 elif lex.chk_STR_CONST(Main._temp, Main._lineNum):
                     self.flagStr=0
                     ch=''
-                    self.printToken("STR_CONST", Main._temp, Main._lineNum)
+                    self.printToken("STR_CONST", Main._temp[1:-1], Main._lineNum)
                     Main._temp = ""
 
                 # elif lex.chk_CHAR_CONST(Main._temp, Main._lineNum):
@@ -165,10 +165,10 @@ class Main():
                 Main._temp+=ch
                 char1 = str(f.read(1), 'utf-8')
                 char2 = str(f.read(1), 'utf-8')
-                if char1=='\'':
-                    f.seek(-1,1)
-                    Main._temp += char1
-                elif char1=='\\':
+                # if char1=='\'':
+                #     f.seek(-1,1)
+                #     Main._temp += char1
+                if char1=='\\':
                     char3 = str(f.read(1), 'utf-8')
                     if char2=='\'':
                         Main._temp += char2 + char3
@@ -187,7 +187,7 @@ class Main():
                 if lex.chk_CHAR_CONST(Main._temp, Main._lineNum):
                     # self.flagChar = 0
                     # ch = ''
-                    self.printToken("CHAR_CONST", Main._temp, Main._lineNum)
+                    self.printToken("CHAR_CONST", Main._temp[1:-1], Main._lineNum)
                     Main._temp = ""
                 else:
                     Main._temp = "Error at " + str(Main._lineNum) + " where value is " + Main._temp

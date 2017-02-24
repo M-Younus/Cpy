@@ -16,18 +16,20 @@ import re
 # if temp[0]=='.':
 #     print("chl")
 
+temp="fgfg"
+print(temp[1:-1])
 
 # f = open('test.txt','rb+')
 # for ch in iter(lambda: f.read(1), ''):
 #     print(ch,end="")
 #
 
-c='\\'
-temp="fdf\\dfd"
-print(temp)
-
-a=5.
-print(a)
+# c='\\'
+# temp="fdf\\dfd"
+# print(temp)
+#
+# a=5.
+# print(a)
 
 # temp="gfg#*gfgf"
 # print(temp)

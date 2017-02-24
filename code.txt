@@ -1,1 +1,19 @@
-'as'a'
+class Main():{
+	
+	def main():{
+		a=5;b=6;c='';temp="hello"
+		53434.5252.554.a
+'as'"dffd"
+==+===++<<>?$dffdftrtr+++--!!&!||
+'\n'
+'\''
+'\h'
+'a'
+		a++;b<=t;b<r;i||r
+		if a<=b:{
+			#here i negate a
+			b!=t%y=!a&&c;
+		}
+	}
+
+}
