@@ -1,1 +1,3 @@
-Error at 1 where value is $
+( LO , ! , 1 )
+( LO , && , 2 )
+( RO , != , 3 )

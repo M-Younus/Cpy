@@ -221,6 +221,7 @@ class Main():
                 elif ch == '!':
                     f.seek(-1, 1)
                     self.printToken("LO", str(ch), Main._lineNum)
+                    # self.printToken("LO", str(ch), Main._lineNum)
 
             # check for LO
             if ch in ['&', '|']:
