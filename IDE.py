@@ -28,6 +28,8 @@ class IDE():
         self.outputFile.write(Main._fileData)
         self.outputFile.close()
 
+        self.objMain.E()
+
 
     def newFunc(self):
         self.codeT.delete(1.0,END)

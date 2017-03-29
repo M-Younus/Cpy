@@ -1,11 +1,14 @@
 
 from lexical import Lexical
+from Token import Token
 
 
 import re
 
 
 class Main():
+
+    _tokens=[];_tokensIndex=0
 
     _temp = "";_lineNum = 1;_codeFile="code.txt";_outputFile="output.txt";_fileData=""
 
@@ -18,6 +21,69 @@ class Main():
     def __init__(self):
         Main._fileData=""
         Main._lineNum=1
+        Main._tokens=[]
+        Main._tokensIndex=0
+
+    def DECL_ASGN(self):
+        if Main._tokens[Main._tokensIndex].CP=="ID":
+            Main._tokensIndex+=1
+            if self.LIST():
+                return True
+
+        return False
+
+    def LIST(self):
+        if Main._tokens[Main._tokensIndex].CP in ['=',',','$']:
+            Main._tokensIndex += 1
+            if self.INIT():
+                if self.LIST2():
+                    return True
+        return False
+
+
+    def INIT(self):
+        if Main._tokens[Main._tokensIndex].CP in ['=',',','$']:
+            if Main._tokens[Main._tokensIndex].CP == "=":
+                Main._tokensIndex += 1
+                if self.INIT2():
+                    return True
+                else:
+                    return True
+
+        return False
+
+
+    def LIST2(self):
+        if Main._tokens[Main._tokensIndex].CP  in [',','$']:
+            if Main._tokens[Main._tokensIndex].CP==',':
+                if self.DECL_ASGN():
+                    return True
+            else:
+                return True
+
+        return False
+
+    def INIT2(self):
+        if Main._tokens[Main._tokensIndex].CP  in ['ID','!','(','INCDEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST','$']:
+            if self.E():
+                Main._tokensIndex += 1
+                if self.INIT3():
+                    return True
+
+        return False
+
+    def E(self):
+        pass
+
+    def INIT3(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST', '$']:
+            if Main._tokens[Main._tokensIndex].CP !='$':
+                if self.INIT():
+                    return True
+            else:
+                return True
+
+        return False
 
     def mainMethod(self,f):
         lex = Lexical()
@@ -35,6 +101,7 @@ class Main():
                 if self.flagFloat:
                     if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
                         self.printToken("FLT_CONST", Main._temp, Main._lineNum)
+                        Main._tokens.append(Token("FLT_CONST", Main._temp, Main._lineNum))
                         f.seek(-1,1)
                         Main._temp = ""
                         self.flagFloat=0
@@ -75,25 +142,30 @@ class Main():
 
                 if lex.chk_FLT_CONST(Main._temp, Main._lineNum):
                     self.printToken("FLT_CONST", Main._temp, Main._lineNum)
+                    Main._tokens.append(Token("FLT_CONST", Main._temp, Main._lineNum))
                     self.flagFloat=0
                     Main._temp = ""
 
                 if lex.chk_keywords(Main._temp, Main._lineNum):
                     self.printToken(Main._temp,"-", Main._lineNum)
+                    Main._tokens.append(Token(Main._temp,"-", Main._lineNum))
                     Main._temp = ""
 
                 elif lex.chk_ID(Main._temp, Main._lineNum):
                     self.printToken("ID", Main._temp, Main._lineNum)
+                    Main._tokens.append(Token("ID", Main._temp, Main._lineNum))
                     Main._temp = ""
 
                 elif lex.chk_INT_CONST(Main._temp, Main._lineNum):
                     self.printToken("INT_CONST", Main._temp, Main._lineNum)
+                    Main._tokens.append(Token("INT_CONST", Main._temp, Main._lineNum))
                     Main._temp = ""
 
                 elif lex.chk_STR_CONST(Main._temp, Main._lineNum):
                     self.flagStr=0
                     ch=''
                     self.printToken("STR_CONST", Main._temp[1:-1], Main._lineNum)
+                    Main._tokens.append(Token("STR_CONST", Main._temp[1:-1], Main._lineNum))
                     Main._temp = ""
 
                 elif Main._temp != "":
@@ -103,6 +175,7 @@ class Main():
 
                 if ch not in Main._invalidPrint and ch!='':
                     self.printToken(str(ch), '-', Main._lineNum)
+                    Main._tokens.append(Token(str(ch), '-', Main._lineNum))
                 if ch == '\n':
                     Main._lineNum += 1
 
@@ -154,6 +227,7 @@ class Main():
 
                 if lex.chk_CHAR_CONST(Main._temp, Main._lineNum):
                     self.printToken("CHAR_CONST", Main._temp[1:-1], Main._lineNum)
+                    Main._tokens.append(Token("CHAR_CONST", Main._temp[1:-1], Main._lineNum))
                     Main._temp = ""
                 else:
                     Main._temp = "Error at " + str(Main._lineNum) + " where value is " + Main._temp
@@ -188,20 +262,25 @@ class Main():
                 if ch == OneRight:
                     Main._temp = ch + ch
                     self.printToken("INC_DEC", Main._temp, Main._lineNum)
+                    Main._tokens.append(Token("INC_DEC", Main._temp, Main._lineNum))
                     Main._temp = ""
                 elif OneRight == '=':
                     Main._temp = ch + OneRight
                     self.printToken("ASGN_OPT", Main._temp, Main._lineNum)
+                    Main._tokens.append(Token("ASGN_OPT", Main._temp, Main._lineNum))
                     Main._temp = ""
                 elif ch in ['+', '-']:
                     f.seek(-1, 1)
                     self.printToken("ADD_SUB", str(ch), Main._lineNum)
+                    Main._tokens.append(Token("ADD_SUB", str(ch), Main._lineNum))
                 elif ch == '*':
                     f.seek(-1, 1)
                     self.printToken("MUL", str(ch), Main._lineNum)
+                    Main._tokens.append(Token("MUL", str(ch), Main._lineNum))
                 elif ch in ['/', '%']:
                     f.seek(-1, 1)
                     self.printToken("DIV_REM", str(ch), Main._lineNum)
+                    Main._tokens.append(Token("DIV_REM", str(ch), Main._lineNum))
                 else:
                     f.seek(-1, 1)
 
@@ -211,16 +290,20 @@ class Main():
                 if OneRight == '=':
                     Main._temp = ch + OneRight
                     self.printToken("RO", Main._temp, Main._lineNum)
+                    Main._tokens.append(Token("RO", Main._temp, Main._lineNum))
                     Main._temp = ""
                 elif ch == '=':
                     f.seek(-1, 1)
                     self.printToken('=', '-', Main._lineNum)
+                    Main._tokens.append(Token('=', '-', Main._lineNum))
                 elif ch != '!':
                     f.seek(-1, 1)
                     self.printToken("RO", str(ch), Main._lineNum)
+                    Main._tokens.append(Token("RO", str(ch), Main._lineNum))
                 elif ch == '!':
                     f.seek(-1, 1)
                     self.printToken("LO", str(ch), Main._lineNum)
+                    Main._tokens.append(Token("LO", str(ch), Main._lineNum))
                     # self.printToken("LO", str(ch), Main._lineNum)
 
             # check for LO
@@ -229,6 +312,7 @@ class Main():
                 if ch == OneRight:
                     Main._temp = ch + OneRight
                     self.printToken("LO", Main._temp, Main._lineNum)
+                    Main._tokens.append(Token("LO", Main._temp, Main._lineNum))
                     Main._temp = ""
                 elif ch != OneRight:
                     temp = "Error at " + str(Main._lineNum) + " where value is " + str(ch)
@@ -236,6 +320,8 @@ class Main():
                     f.seek(-1, 1)
                     Main._temp = ""
 
+        self.printToken("$", "-", Main._lineNum)
+        Main._tokens.append(Token("$", "-", Main._lineNum))
 
     def printToken(self,CPart, VPart, line):
         string = "( " + CPart + " , " + VPart + " , " + str(line) + " )"
