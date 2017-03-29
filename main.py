@@ -252,8 +252,8 @@ class Main():
                     if Main._tokens[Main._tokensIndex].CP == "ID":
                         Main._tokensIndex += 1
                         if Main._tokens[Main._tokensIndex].CP == "(":
-                            Main._tokensIndex += 1
-                            if self.DECL_ASGN():
+                            # Main._tokensIndex += 1
+                            if self.PARAMS():
                                 Main._tokensIndex += 1
                                 if Main._tokens[Main._tokensIndex].CP == ")":
                                     return True
@@ -274,7 +274,7 @@ class Main():
                     Main._tokensIndex += 1
                     if Main._tokens[Main._tokensIndex].CP == "(":
                         Main._tokensIndex += 1
-                        if self.DECL_ASGN():
+                        if self.PARAMS():
                             Main._tokensIndex += 1
                             if Main._tokens[Main._tokensIndex].CP == ")":
                                 return True
@@ -307,7 +307,7 @@ class Main():
                     Main._tokensIndex += 1
                     if Main._tokens[Main._tokensIndex].CP == '(':
                         Main._tokensIndex += 1
-                        if self.DECL_ASGN():
+                        if self.PARAMS():
                             Main._tokensIndex += 1
                             if Main._tokens[Main._tokensIndex].CP == ')':
                                 return True

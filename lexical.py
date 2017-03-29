@@ -4,7 +4,7 @@ import re
 class Lexical():
 
     _keywords = ['False', 'class', 'finally', 'is', 'return', 'None', 'continue', 'for', 'True',
-                     'def', 'while', 'elif', 'if', 'else', 'break']
+                     'def', 'while', 'elif', 'if', 'else', 'break','self']
 
     _EscKeywords=['t','r','b','n']
 
