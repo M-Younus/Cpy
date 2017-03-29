@@ -72,9 +72,6 @@ class Main():
 
         return False
 
-    def E(self):
-        pass
-
     def INIT3(self):
         if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST', '$']:
             if Main._tokens[Main._tokensIndex].CP !='$':
@@ -84,6 +81,232 @@ class Main():
                 return True
 
         return False
+
+    def E(self):
+        if Main._tokens[Main._tokensIndex].CP  in ['ID','!','(','INCDEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST']:
+            if self.F():
+                Main._tokensIndex += 1
+                if self.E1():
+                    return True
+
+    def E1(self):
+        if Main._tokens[Main._tokensIndex].CP  in ['LO',')']:
+            if Main._tokens[Main._tokensIndex].CP == '||':
+                Main._tokensIndex += 1
+                if self.F():
+                    Main._tokensIndex += 1
+                    if self.E1():
+                        return True
+            else:
+                return True
+
+        return False
+
+    def F(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+            if self.G():
+                Main._tokensIndex += 1
+                if self.F1():
+                    return True
+
+        return False
+
+
+    def F1(self):
+        if Main._tokens[Main._tokensIndex].CP in ['LO', ')']:
+            if Main._tokens[Main._tokensIndex].CP == '&&':
+                Main._tokensIndex += 1
+                if self.G():
+                    Main._tokensIndex += 1
+                    if self.F1():
+                        return True
+            else:
+                return True
+
+        return False
+
+
+    def G(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+            if self.H():
+                Main._tokensIndex += 1
+                if self.G1():
+                    return True
+
+        return False
+
+    def G1(self):
+        if Main._tokens[Main._tokensIndex].CP in ['RO','LO', ')']:
+            if Main._tokens[Main._tokensIndex].CP=='RO':
+                Main._tokensIndex += 1
+                if self.H():
+                    Main._tokensIndex += 1
+                    if self.G1():
+                        return True
+            else:
+                return True
+
+        return False
+
+
+    def H(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+            if self.I():
+                Main._tokensIndex += 1
+                if self.H1():
+                    return True
+
+        return False
+
+
+    def H1(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ADDSUB','RO', 'LO', ')']:
+            if Main._tokens[Main._tokensIndex].CP=='ADDSUB':
+                Main._tokensIndex += 1
+                if self.I():
+                    Main._tokensIndex += 1
+                    if self.H1():
+                        return True
+            else:
+                return True
+
+        return False
+
+    def I(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+            if self.J():
+                Main._tokensIndex += 1
+                if self.I1():
+                    return True
+
+        return False
+
+    def I1(self):
+        if Main._tokens[Main._tokensIndex].CP in ['DIVMUL','ADDSUB', 'RO', 'LO', ')']:
+            if Main._tokens[Main._tokensIndex].CP == 'DIVMUL':
+                Main._tokensIndex += 1
+                if self.J():
+                    if self.I1():
+                        return True
+
+            else:
+                return True
+
+        return False
+
+    def J(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+            if Main._tokens[Main._tokensIndex].CP=="ID":
+                Main._tokensIndex += 1
+                if self.J2():
+                    return True
+            elif Main._tokens[Main._tokensIndex].CP=="(":
+                Main._tokensIndex += 1
+                if self.E():
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP==")":
+                        return True
+            elif Main._tokens[Main._tokensIndex].CP=="!":
+                Main._tokensIndex += 1
+                if self.J1():
+                    return True
+            elif self.FUNC_CALL():
+                return True
+            elif self.CONSTANT():
+                return True
+
+        return False
+
+
+    def J1(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST','DIVMUL','ADDSUB','RO','LO',')']:
+            if self.J():
+                return True
+            else:
+                return True
+
+        return False
+
+
+    def J2(self):
+        if Main._tokens[Main._tokensIndex].CP in ['INCDEC', 'DIVMUL', 'ADDSUB', 'RO', 'LO', ')']:
+            if Main._tokens[Main._tokensIndex].CP=='INCDEC':
+                return True
+            else:
+                return True
+
+        return False
+
+    def CONSTANT(self):
+        if Main._tokens[Main._tokensIndex].CP in ['INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+            return True
+
+        return False
+
+    def FUNC_CALL(self):
+        if Main._tokens[Main._tokensIndex].CP in ['self','ID']:
+            if Main._tokens[Main._tokensIndex].CP == "self":
+                Main._tokensIndex += 1
+                if Main._tokens[Main._tokensIndex].CP == ".":
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP == "ID":
+                        Main._tokensIndex += 1
+                        if Main._tokens[Main._tokensIndex].CP == "(":
+                            Main._tokensIndex += 1
+                            if self.DECL_ASGN():
+                                Main._tokensIndex += 1
+                                if Main._tokens[Main._tokensIndex].CP == ")":
+                                    return True
+
+            elif Main._tokens[Main._tokensIndex].CP == "ID":
+                Main._tokensIndex += 1
+                if self.FUNC_CALL1():
+                    return True
+
+        return False
+
+
+    def FUNC_CALL1(self):
+        if Main._tokens[Main._tokensIndex].CP in ['.', '(']:
+            if Main._tokens[Main._tokensIndex].CP==".":
+                Main._tokensIndex += 1
+                if Main._tokens[Main._tokensIndex].CP == "ID":
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP == "(":
+                        Main._tokensIndex += 1
+                        if self.DECL_ASGN():
+                            Main._tokensIndex += 1
+                            if Main._tokens[Main._tokensIndex].CP == ")":
+                                return True
+
+            elif Main._tokens[Main._tokensIndex].CP == "(":
+                Main._tokensIndex += 1
+                if self.FUNC_CALL2():
+                    return True
+
+        return False
+
+
+    def FUNC_CALL2(self):
+        if Main._tokens[Main._tokensIndex].CP in [')', 'ID']:
+            if Main._tokens[Main._tokensIndex].CP == ")":
+                Main._tokensIndex += 1
+                if Main._tokens[Main._tokensIndex].CP == ".":
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP == "ID":
+                        Main._tokensIndex += 1
+                        if Main._tokens[Main._tokensIndex].CP == "(":
+                            Main._tokensIndex += 1
+                            if self.DECL_ASGN():
+                                Main._tokensIndex += 1
+                                if Main._tokens[Main._tokensIndex].CP == ")":
+                                    return True
+
+            else:
+                return True
+
+        return False
+
 
     def mainMethod(self,f):
         lex = Lexical()
