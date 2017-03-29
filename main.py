@@ -64,7 +64,7 @@ class Main():
         return False
 
     def INIT2(self):
-        if Main._tokens[Main._tokensIndex].CP  in ['ID','!','(','INCDEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST','$']:
+        if Main._tokens[Main._tokensIndex].CP  in ['ID','!','(','INC_DEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST','$']:
             if self.E():
                 Main._tokensIndex += 1
                 if self.INIT3():
@@ -73,7 +73,7 @@ class Main():
         return False
 
     def INIT3(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST', '$']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST', '$']:
             if Main._tokens[Main._tokensIndex].CP !='$':
                 if self.INIT():
                     return True
@@ -83,7 +83,7 @@ class Main():
         return False
 
     def E(self):
-        if Main._tokens[Main._tokensIndex].CP  in ['ID','!','(','INCDEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST']:
+        if Main._tokens[Main._tokensIndex].CP  in ['ID','!','(','INC_DEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST']:
             if self.F():
                 Main._tokensIndex += 1
                 if self.E1():
@@ -103,7 +103,7 @@ class Main():
         return False
 
     def F(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
             if self.G():
                 Main._tokensIndex += 1
                 if self.F1():
@@ -127,7 +127,7 @@ class Main():
 
 
     def G(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
             if self.H():
                 Main._tokensIndex += 1
                 if self.G1():
@@ -150,7 +150,7 @@ class Main():
 
 
     def H(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
             if self.I():
                 Main._tokensIndex += 1
                 if self.H1():
@@ -160,8 +160,8 @@ class Main():
 
 
     def H1(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ADDSUB','RO', 'LO', ')']:
-            if Main._tokens[Main._tokensIndex].CP=='ADDSUB':
+        if Main._tokens[Main._tokensIndex].CP in ['ADD_SUB','RO', 'LO', ')']:
+            if Main._tokens[Main._tokensIndex].CP=='ADD_SUB':
                 Main._tokensIndex += 1
                 if self.I():
                     Main._tokensIndex += 1
@@ -173,7 +173,7 @@ class Main():
         return False
 
     def I(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
             if self.J():
                 Main._tokensIndex += 1
                 if self.I1():
@@ -182,8 +182,8 @@ class Main():
         return False
 
     def I1(self):
-        if Main._tokens[Main._tokensIndex].CP in ['DIVMUL','ADDSUB', 'RO', 'LO', ')']:
-            if Main._tokens[Main._tokensIndex].CP == 'DIVMUL':
+        if Main._tokens[Main._tokensIndex].CP in ['DIV_MUL','ADD_SUB', 'RO', 'LO', ')']:
+            if Main._tokens[Main._tokensIndex].CP == 'DIV_MUL':
                 Main._tokensIndex += 1
                 if self.J():
                     if self.I1():
@@ -195,7 +195,7 @@ class Main():
         return False
 
     def J(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
             if Main._tokens[Main._tokensIndex].CP=="ID":
                 Main._tokensIndex += 1
                 if self.J2():
@@ -219,7 +219,7 @@ class Main():
 
 
     def J1(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INCDEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST','DIVMUL','ADDSUB','RO','LO',')']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST','DIV_MUL','ADD_SUB','RO','LO',')']:
             if self.J():
                 return True
             else:
@@ -229,8 +229,8 @@ class Main():
 
 
     def J2(self):
-        if Main._tokens[Main._tokensIndex].CP in ['INCDEC', 'DIVMUL', 'ADDSUB', 'RO', 'LO', ')']:
-            if Main._tokens[Main._tokensIndex].CP=='INCDEC':
+        if Main._tokens[Main._tokensIndex].CP in ['INC_DEC', 'DIV_MUL', 'ADD_SUB', 'RO', 'LO', ')']:
+            if Main._tokens[Main._tokensIndex].CP=='INC_DEC':
                 return True
             else:
                 return True
@@ -291,22 +291,40 @@ class Main():
         if Main._tokens[Main._tokensIndex].CP in [')', 'ID']:
             if Main._tokens[Main._tokensIndex].CP == ")":
                 Main._tokensIndex += 1
-                if Main._tokens[Main._tokensIndex].CP == ".":
-                    Main._tokensIndex += 1
-                    if Main._tokens[Main._tokensIndex].CP == "ID":
-                        Main._tokensIndex += 1
-                        if Main._tokens[Main._tokensIndex].CP == "(":
-                            Main._tokensIndex += 1
-                            if self.DECL_ASGN():
-                                Main._tokensIndex += 1
-                                if Main._tokens[Main._tokensIndex].CP == ")":
-                                    return True
+                if self.FUNC_CALL3():
+                    return True
+            elif self.DECL_ASGN():
+                return True
 
+        return False
+
+
+    def FUNC_CALL3(self):
+        if Main._tokens[Main._tokensIndex].CP in ['.', '$']:
+            if Main._tokens[Main._tokensIndex].CP=='.':
+                Main._tokensIndex += 1
+                if Main._tokens[Main._tokensIndex].CP=='ID':
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP == '(':
+                        Main._tokensIndex += 1
+                        if self.DECL_ASGN():
+                            Main._tokensIndex += 1
+                            if Main._tokens[Main._tokensIndex].CP == ')':
+                                return True
             else:
                 return True
 
         return False
 
+
+    def PARAMS(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID',')']:
+            if self.DECL_ASGN():
+                return True
+            else:
+                return True
+
+        return False
 
     def mainMethod(self,f):
         lex = Lexical()
@@ -496,14 +514,18 @@ class Main():
                     f.seek(-1, 1)
                     self.printToken("ADD_SUB", str(ch), Main._lineNum)
                     Main._tokens.append(Token("ADD_SUB", str(ch), Main._lineNum))
-                elif ch == '*':
+                elif ch in ['*','/', '%']:
                     f.seek(-1, 1)
-                    self.printToken("MUL", str(ch), Main._lineNum)
-                    Main._tokens.append(Token("MUL", str(ch), Main._lineNum))
-                elif ch in ['/', '%']:
-                    f.seek(-1, 1)
-                    self.printToken("DIV_REM", str(ch), Main._lineNum)
-                    Main._tokens.append(Token("DIV_REM", str(ch), Main._lineNum))
+                    self.printToken("DIV_MUL", str(ch), Main._lineNum)
+                    Main._tokens.append(Token("DIV_MUL", str(ch), Main._lineNum))
+                # elif ch == '*':
+                #     f.seek(-1, 1)
+                #     self.printToken("MUL", str(ch), Main._lineNum)
+                #     Main._tokens.append(Token("MUL", str(ch), Main._lineNum))
+                # elif ch in ['/', '%']:
+                #     f.seek(-1, 1)
+                #     self.printToken("DIV_REM", str(ch), Main._lineNum)
+                #     Main._tokens.append(Token("DIV_REM", str(ch), Main._lineNum))
                 else:
                     f.seek(-1, 1)
 
