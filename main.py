@@ -34,10 +34,12 @@ class Main():
 
     def LIST(self):
         if Main._tokens[Main._tokensIndex].CP in ['=',',','$']:
-            Main._tokensIndex += 1
-            if self.INIT():
-                if self.LIST2():
+            if Main._tokens[Main._tokensIndex].CP=='=':
+                if self.INIT():
                     return True
+            elif Main._tokens[Main._tokensIndex].CP==',':
+                    if self.LIST2():
+                        return True
         return False
 
 
@@ -83,14 +85,14 @@ class Main():
         return False
 
     def E(self):
-        if Main._tokens[Main._tokensIndex].CP  in ['ID','!','(','INC_DEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID','!','(','INC_DEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST']:
             if self.F():
                 Main._tokensIndex += 1
                 if self.E1():
                     return True
 
     def E1(self):
-        if Main._tokens[Main._tokensIndex].CP  in ['LO',')']:
+        if Main._tokens[Main._tokensIndex].CP in ['LO',')']:
             if Main._tokens[Main._tokensIndex].CP == '||':
                 Main._tokensIndex += 1
                 if self.F():
@@ -203,7 +205,7 @@ class Main():
             elif Main._tokens[Main._tokensIndex].CP=="(":
                 Main._tokensIndex += 1
                 if self.E():
-                    Main._tokensIndex += 1
+                    # Main._tokensIndex += 1
                     if Main._tokens[Main._tokensIndex].CP==")":
                         return True
             elif Main._tokens[Main._tokensIndex].CP=="!":
@@ -252,9 +254,9 @@ class Main():
                     if Main._tokens[Main._tokensIndex].CP == "ID":
                         Main._tokensIndex += 1
                         if Main._tokens[Main._tokensIndex].CP == "(":
-                           #rrrr # Main._tokensIndex += 1
+                            Main._tokensIndex += 1
                             if self.PARAMS():
-                                Main._tokensIndex += 1
+                                # Main._tokensIndex += 1
                                 if Main._tokens[Main._tokensIndex].CP == ")":
                                     return True
 
@@ -275,7 +277,7 @@ class Main():
                     if Main._tokens[Main._tokensIndex].CP == "(":
                         Main._tokensIndex += 1
                         if self.PARAMS():
-                            Main._tokensIndex += 1
+                            # Main._tokensIndex += 1
                             if Main._tokens[Main._tokensIndex].CP == ")":
                                 return True
 
@@ -308,7 +310,7 @@ class Main():
                     if Main._tokens[Main._tokensIndex].CP == '(':
                         Main._tokensIndex += 1
                         if self.PARAMS():
-                            Main._tokensIndex += 1
+                            # Main._tokensIndex += 1
                             if Main._tokens[Main._tokensIndex].CP == ')':
                                 return True
             else:
@@ -319,8 +321,9 @@ class Main():
 
     def PARAMS(self):
         if Main._tokens[Main._tokensIndex].CP in ['ID',')']:
-            if self.DECL_ASGN():
-                return True
+            if Main._tokens[Main._tokensIndex].CP=="ID":
+                if self.DECL_ASGN():
+                    return True
             else:
                 return True
 
