@@ -49,7 +49,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            # Main._tokensIndex -= 1
+            return True
 
         # return False
 
@@ -63,7 +65,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
         # return False
 
@@ -84,7 +88,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
 
     def E(self):
@@ -107,7 +113,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
         # return False
 
@@ -132,7 +140,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
         # return False
 
@@ -157,7 +167,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
         # return False
 
 
@@ -182,7 +194,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
         # return False
 
@@ -206,7 +220,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
         # return False
 
@@ -340,7 +356,9 @@ class Main():
         # else:
         #     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
         # return False
 
