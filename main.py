@@ -46,8 +46,9 @@ class Main():
             Main._tokensIndex += 1
             if self.INIT2():
                 return True
-        # else:
-        #     return True
+            else:
+                Main._tokensIndex -= 1
+                return True
 
         else:
             # Main._tokensIndex -= 1
@@ -62,11 +63,12 @@ class Main():
             Main._tokensIndex += 1
             if self.DECL_ASGN():
                 return True
-        # else:
-        #     return True
+            else:
+                Main._tokensIndex -= 1
+                return True
 
         else:
-            Main._tokensIndex -= 1
+            # Main._tokensIndex -= 1
             return True
 
         # return False
@@ -89,7 +91,7 @@ class Main():
         #     return True
 
         else:
-            Main._tokensIndex -= 1
+            # Main._tokensIndex -= 1
             return True
 
 
@@ -114,7 +116,7 @@ class Main():
         #     return True
 
         else:
-            Main._tokensIndex -= 1
+            # Main._tokensIndex -= 1
             return True
 
         # return False
@@ -141,7 +143,7 @@ class Main():
         #     return True
 
         else:
-            Main._tokensIndex -= 1
+            # Main._tokensIndex -= 1
             return True
 
         # return False
@@ -168,7 +170,7 @@ class Main():
         #     return True
 
         else:
-            Main._tokensIndex -= 1
+            # Main._tokensIndex -= 1
             return True
         # return False
 
@@ -195,7 +197,7 @@ class Main():
         #     return True
 
         else:
-            Main._tokensIndex -= 1
+            # Main._tokensIndex -= 1
             return True
 
         # return False
@@ -221,7 +223,7 @@ class Main():
         #     return True
 
         else:
-            Main._tokensIndex -= 1
+            # Main._tokensIndex -= 1
             return True
 
         # return False
