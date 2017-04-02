@@ -54,7 +54,6 @@ class Main():
             # Main._tokensIndex -= 1
             return True
 
-        # return False
 
 
     def LIST2(self):
@@ -71,10 +70,8 @@ class Main():
             # Main._tokensIndex -= 1
             return True
 
-        # return False
 
     def INIT2(self):
-        # if Main._tokens[Main._tokensIndex].CP  in ['ID','!','(','INC_DEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST',',','$']:
         if self.E():
             # Main._tokensIndex += 1
             if self.INIT3():
@@ -83,12 +80,9 @@ class Main():
         return False
 
     def INIT3(self):
-        # if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST',',','$']:
         #     if Main._tokens[Main._tokensIndex].CP =='=':
         if self.INIT():
             return True
-        # else:
-        #     return True
 
         else:
             # Main._tokensIndex -= 1
@@ -96,7 +90,6 @@ class Main():
 
 
     def E(self):
-        # if Main._tokens[Main._tokensIndex].CP in ['ID','!','(','INC_DEC','self','INT_CONST','FLT_CONST','STR_CONST','CHAR_CONST']:
         if self.F():
             # Main._tokensIndex += 1
             if self.E1():
@@ -112,8 +105,6 @@ class Main():
                 # Main._tokensIndex += 1
                 if self.E1():
                     return True
-        # else:
-        #     return True
 
         else:
             # Main._tokensIndex -= 1
@@ -122,7 +113,6 @@ class Main():
         # return False
 
     def F(self):
-        # if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
         if self.G():
             # Main._tokensIndex += 1
             if self.F1():
@@ -139,18 +129,13 @@ class Main():
                 # Main._tokensIndex += 1
                 if self.F1():
                     return True
-        # else:
-        #     return True
 
         else:
             # Main._tokensIndex -= 1
             return True
 
-        # return False
-
 
     def G(self):
-        # if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
         if self.H():
             # Main._tokensIndex += 1
             if self.G1():
@@ -166,17 +151,13 @@ class Main():
                 # Main._tokensIndex += 1
                 if self.G1():
                     return True
-        # else:
-        #     return True
 
         else:
             # Main._tokensIndex -= 1
             return True
-        # return False
 
 
     def H(self):
-        # if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
         if self.I():
             # Main._tokensIndex += 1
             if self.H1():
@@ -193,17 +174,13 @@ class Main():
                 # Main._tokensIndex += 1
                 if self.H1():
                     return True
-        # else:
-        #     return True
 
         else:
             # Main._tokensIndex -= 1
             return True
 
-        # return False
 
     def I(self):
-        # if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
         if self.J():
             # Main._tokensIndex += 1
             if self.I1():
@@ -219,14 +196,11 @@ class Main():
                 # Main._tokensIndex += 1
                 if self.I1():
                     return True
-        # else:
-        #     return True
 
         else:
             # Main._tokensIndex -= 1
             return True
 
-        # return False
 
     def J(self):
         if Main._tokens[Main._tokensIndex].CP in ['ID', 'LO', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
@@ -257,18 +231,12 @@ class Main():
 
 
     def J1(self):
-        # if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST','DIV_MUL','ADD_SUB','RO','LO',')']:
-        # if Main._tokens[Main._tokensIndex].CP in ['ID', '!', '(', 'INC_DEC', 'self', 'INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
         if self.J():
             return True
-        # else:
-        #     return True
 
         else:
             Main._tokensIndex -= 1
             return True
-
-        # return False
 
 
     def J2(self):
@@ -279,7 +247,6 @@ class Main():
             # Main._tokensIndex -= 1
             return True
 
-        # return False
 
     def CONSTANT(self):
         if Main._tokens[Main._tokensIndex].CP in ['INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
@@ -355,26 +322,19 @@ class Main():
                         Main._tokensIndex += 1
                         if Main._tokens[Main._tokensIndex].CP == ')':
                             return True
-        # else:
-        #     return True
 
         else:
             Main._tokensIndex -= 1
             return True
 
-        # return False
-
 
     def PARAMS(self):
-        # if Main._tokens[Main._tokensIndex].CP in ['ID',')']:
         # if Main._tokens[Main._tokensIndex].CP=="ID":
         if self.DECL_ASGN():
             return True
         else:
             Main._tokensIndex -= 1
             return True
-
-        # return False
 
     def mainMethod(self,f):
         lex = Lexical()
