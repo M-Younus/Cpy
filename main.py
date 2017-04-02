@@ -276,7 +276,7 @@ class Main():
         if Main._tokens[Main._tokensIndex].CP=='INC_DEC':
             return True
         else:
-            Main._tokensIndex -= 1
+            # Main._tokensIndex -= 1
             return True
 
         # return False
