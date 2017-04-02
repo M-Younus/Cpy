@@ -34,6 +34,7 @@ class Main():
 
     def LIST(self):
         if self.INIT():
+            Main._tokensIndex += 1
             if self.LIST2():
                 return True
 
@@ -46,14 +47,13 @@ class Main():
             Main._tokensIndex += 1
             if self.INIT2():
                 return True
-            else:
-                Main._tokensIndex -= 1
-                return True
+            # else:
+            #     Main._tokensIndex -= 1
+            #     return True
 
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
-
 
 
     def LIST2(self):
@@ -62,36 +62,37 @@ class Main():
             Main._tokensIndex += 1
             if self.DECL_ASGN():
                 return True
-            else:
-                Main._tokensIndex -= 1
-                return True
+            # else:
+            #     Main._tokensIndex -= 1
+            #     return True
 
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
+
 
 
     def INIT2(self):
         if self.E():
-            # Main._tokensIndex += 1
+            Main._tokensIndex += 1
             if self.INIT3():
                 return True
 
         return False
 
     def INIT3(self):
-        #     if Main._tokens[Main._tokensIndex].CP =='=':
-        if self.INIT():
-            return True
+        if Main._tokens[Main._tokensIndex].CP =='=':
+            if self.INIT():
+                return True
 
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
 
 
     def E(self):
         if self.F():
-            # Main._tokensIndex += 1
+            Main._tokensIndex += 1
             if self.E1():
                 return True
 
@@ -102,19 +103,19 @@ class Main():
         if Main._tokens[Main._tokensIndex].VP == '||':
             Main._tokensIndex += 1
             if self.F():
-                # Main._tokensIndex += 1
+                Main._tokensIndex += 1
                 if self.E1():
                     return True
 
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
 
         # return False
 
     def F(self):
         if self.G():
-            # Main._tokensIndex += 1
+            Main._tokensIndex += 1
             if self.F1():
                 return True
 
@@ -126,18 +127,18 @@ class Main():
         if Main._tokens[Main._tokensIndex].VP == '&&':
             Main._tokensIndex += 1
             if self.G():
-                # Main._tokensIndex += 1
+                Main._tokensIndex += 1
                 if self.F1():
                     return True
 
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
 
 
     def G(self):
         if self.H():
-            # Main._tokensIndex += 1
+            Main._tokensIndex += 1
             if self.G1():
                 return True
 
@@ -148,18 +149,18 @@ class Main():
         if Main._tokens[Main._tokensIndex].CP=='RO':
             Main._tokensIndex += 1
             if self.H():
-                # Main._tokensIndex += 1
+                Main._tokensIndex += 1
                 if self.G1():
                     return True
 
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
 
 
     def H(self):
         if self.I():
-            # Main._tokensIndex += 1
+            Main._tokensIndex += 1
             if self.H1():
                 return True
 
@@ -171,18 +172,18 @@ class Main():
         if Main._tokens[Main._tokensIndex].CP=='ADD_SUB':
             Main._tokensIndex += 1
             if self.I():
-                # Main._tokensIndex += 1
+                Main._tokensIndex += 1
                 if self.H1():
                     return True
 
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
 
 
     def I(self):
         if self.J():
-            # Main._tokensIndex += 1
+            Main._tokensIndex += 1
             if self.I1():
                 return True
 
@@ -193,12 +194,12 @@ class Main():
         if Main._tokens[Main._tokensIndex].CP == 'DIV_MUL':
             Main._tokensIndex += 1
             if self.J():
-                # Main._tokensIndex += 1
+                Main._tokensIndex += 1
                 if self.I1():
                     return True
 
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
 
 
@@ -244,7 +245,7 @@ class Main():
         if Main._tokens[Main._tokensIndex].CP=='INC_DEC':
             return True
         else:
-            # Main._tokensIndex -= 1
+            Main._tokensIndex -= 1
             return True
 
 
@@ -336,6 +337,76 @@ class Main():
             Main._tokensIndex -= 1
             return True
 
+
+    def IF_ELSE(self):
+        if Main._tokens[Main._tokensIndex].CP=="if":
+            Main._tokensIndex += 1
+            if Main._tokens[Main._tokensIndex].CP == "(":
+                Main._tokensIndex += 1
+                if self.E():
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP == ")":
+                        if Main._tokens[Main._tokensIndex].CP == ":":
+                            Main._tokensIndex += 1
+                            if self.BODY2():
+                                Main._tokensIndex += 1
+                                if self.ELIF():
+                                    Main._tokensIndex += 1
+                                    if self.O_ELSE():
+                                        return True
+
+        return False
+
+
+    def ELIF(self):
+        if Main._tokens[Main._tokensIndex].CP == "elif":
+            Main._tokensIndex += 1
+            if self.E():
+                Main._tokensIndex += 1
+                if Main._tokens[Main._tokensIndex].CP == ")":
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP == ":":
+                        Main._tokensIndex += 1
+                        if self.BODY2():
+                            return True
+
+        return True
+
+
+    def O_ELSE(self):
+        if Main._tokens[Main._tokensIndex].CP == "else":
+            Main._tokensIndex += 1
+            if Main._tokens[Main._tokensIndex].CP == ":":
+                Main._tokensIndex += 1
+                if self.BODY2():
+                    return True
+
+        return True
+
+
+    def BODY2(self):
+        if self.S_ST2():
+            return True
+        elif Main._tokens[Main._tokensIndex].CP == "{":
+            Main._tokensIndex += 1
+            if self.M_ST2():
+                Main._tokensIndex += 1
+                if Main._tokens[Main._tokensIndex].CP == "}":
+                    return True
+
+        return False
+
+
+    def M_ST2(self):
+        if self.S_ST2():
+            Main._tokensIndex += 1
+            if self.M_ST2():
+                return True
+
+        return True
+
+
+
     def mainMethod(self,f):
         lex = Lexical()
 
@@ -384,7 +455,7 @@ class Main():
                 OneRight = str(f.read(1), 'utf-8')
                 TwoRight = str(f.read(1), 'utf-8')
                 f.seek(-2, 1)
-                if (not re.match("[0-9]", OneLeft)) and (re.match("[0-9]", OneRight) or re.match("[0-9]", TwoRight)):
+                if (not re.match("[0-9A-Za-z]", OneLeft)) and (re.match("[0-9]", OneRight) or re.match("[0-9]", TwoRight)):
                     Main._temp += ch
                     continue
 
