@@ -28,7 +28,7 @@ class IDE():
         self.outputFile.write(Main._fileData)
         self.outputFile.close()
 
-        if self.objMain.FUNC_CALL():
+        if self.objMain.DECL_ASGN():
             print("Code is parsed")
         else:
             print("there is error in code")

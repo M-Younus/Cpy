@@ -24,6 +24,112 @@ class Main():
         Main._tokens=[]
         Main._tokensIndex=0
 
+
+    def PROG(self):
+        if self.CLASS():
+            Main._tokensIndex += 1
+            if self.PROG():
+                return True
+
+        else:
+            Main._tokensIndex -= 1
+            return False
+
+
+    def CLASS(self):
+        if Main._tokens[Main._tokensIndex].CP == "class":
+            Main._tokensIndex += 1
+            if Main._tokens[Main._tokensIndex].CP == "ID":
+                Main._tokensIndex += 1
+                if self.CLASS1():
+                    return True
+
+        return False
+
+
+
+    def CLASS1(self):
+        if Main._tokens[Main._tokensIndex].CP in ['(',':']:
+            if Main._tokens[Main._tokensIndex].CP=='(':
+                Main._tokensIndex += 1
+                if self.PARENT():
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP==')':
+                        Main._tokensIndex += 1
+                        if Main._tokens[Main._tokensIndex].CP == ':':
+                            Main._tokensIndex += 1
+                            if Main._tokens[Main._tokensIndex].CP == '{':
+                                Main._tokensIndex += 1
+                                if self.M_ST():
+                                    Main._tokensIndex += 1
+                                    if Main._tokens[Main._tokensIndex].CP == '}':
+                                        return True
+
+        return False
+
+
+    def PARENT(self):
+        if Main._tokens[Main._tokensIndex].CP == 'ID':
+            Main._tokensIndex += 1
+            if self.PARENT():
+                return True
+        elif Main._tokens[Main._tokensIndex].CP == ',':
+            Main._tokensIndex += 1
+            if Main._tokens[Main._tokensIndex].CP == 'ID':
+                Main._tokensIndex += 1
+                if self.PARENT():
+                    return True
+
+        else:
+            Main._tokensIndex -= 1
+            return True
+
+
+
+    def M_ST(self):
+        if self.S_ST2():
+            Main._tokensIndex += 1
+            if self.M_ST():
+                return True
+
+        else:
+            Main._tokensIndex -= 1
+            return True
+
+    def S_ST(self):
+        if Main._tokens[Main._tokensIndex].CP in ['ID','self', 'while','for','if']:
+            if Main._tokens[Main._tokensIndex].CP =='ID':
+                Main._tokensIndex += 1
+                if self.S_ST2():
+                    return True
+            elif Main._tokens[Main._tokensIndex].CP == 'self':
+                Main._tokensIndex += 1
+                if Main._tokens[Main._tokensIndex].CP == '.':
+                    Main._tokensIndex += 1
+                    if Main._tokens[Main._tokensIndex].CP == 'ID':
+                        Main._tokensIndex += 1
+                        if Main._tokens[Main._tokensIndex].CP == '(':
+                            Main._tokensIndex += 1
+                            if self.DECL_ASGN():
+                                Main._tokensIndex += 1
+                                if Main._tokens[Main._tokensIndex].CP == ')':
+                                    return True
+            elif self.WHILE_ST():
+                return True
+            elif self.FOR_ST():
+                return True
+            elif self.IF_ELSE():
+                return True
+
+        return False
+
+
+    def S_ST2(self):
+        if Main._tokens[Main._tokensIndex].CP in ['=',',','.','(','elif','else','ID', 'self', 'while', 'for', 'if','$']:
+            pass
+
+
+
     def DECL_ASGN(self):
         if Main._tokens[Main._tokensIndex].CP=="ID":
             Main._tokensIndex+=1
@@ -249,6 +355,7 @@ class Main():
             return True
 
 
+
     def CONSTANT(self):
         if Main._tokens[Main._tokensIndex].CP in ['INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
             return True
@@ -348,7 +455,7 @@ class Main():
                     if Main._tokens[Main._tokensIndex].CP == ")":
                         if Main._tokens[Main._tokensIndex].CP == ":":
                             Main._tokensIndex += 1
-                            if self.BODY2():
+                            if self.BODY():
                                 Main._tokensIndex += 1
                                 if self.ELIF():
                                     Main._tokensIndex += 1
@@ -367,10 +474,12 @@ class Main():
                     Main._tokensIndex += 1
                     if Main._tokens[Main._tokensIndex].CP == ":":
                         Main._tokensIndex += 1
-                        if self.BODY2():
+                        if self.BODY():
                             return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
 
     def O_ELSE(self):
@@ -378,18 +487,20 @@ class Main():
             Main._tokensIndex += 1
             if Main._tokens[Main._tokensIndex].CP == ":":
                 Main._tokensIndex += 1
-                if self.BODY2():
+                if self.BODY():
                     return True
 
-        return True
+        else:
+            Main._tokensIndex -= 1
+            return True
 
 
-    def BODY2(self):
-        if self.S_ST2():
+    def BODY(self):
+        if self.S_ST():
             return True
         elif Main._tokens[Main._tokensIndex].CP == "{":
             Main._tokensIndex += 1
-            if self.M_ST2():
+            if self.M_ST():
                 Main._tokensIndex += 1
                 if Main._tokens[Main._tokensIndex].CP == "}":
                     return True
@@ -397,14 +508,12 @@ class Main():
         return False
 
 
-    def M_ST2(self):
-        if self.S_ST2():
-            Main._tokensIndex += 1
-            if self.M_ST2():
-                return True
+    def WHILE_ST(self):
+        pass
 
-        return True
 
+    def FOR_ST(self):
+        pass
 
 
     def mainMethod(self,f):

@@ -3,8 +3,8 @@ import re
 
 class Lexical():
 
-    _keywords = ['False', 'class', 'finally', 'is', 'return', 'None', 'continue', 'for', 'True',
-                     'def', 'while', 'elif', 'if', 'else', 'break','self']
+    _keywords = ['False', 'class', 'return', 'None', 'continue', 'for', 'True',
+                     'def', 'while', 'elif', 'if', 'else', 'break','self','print','input']
 
     _EscKeywords=['t','r','b','n']
 
