@@ -175,7 +175,7 @@ class Main():
             return True
 
     def S_ST(self):
-        if Main._tokens[Main._tokensIndex].CP in ['ID','self', 'while','for','if']:
+        if Main._tokens[Main._tokensIndex].CP in ['ID','self', 'while','for','if','def']:
             if Main._tokens[Main._tokensIndex].CP =='ID':
                 Main._tokensIndex += 1
                 if self.S_ST2():
@@ -197,6 +197,8 @@ class Main():
             elif self.FOR_ST():
                 return True
             elif self.IF_ELSE():
+                return True
+            elif self.FUNC_DEF():
                 return True
 
         return False
