@@ -28,10 +28,13 @@ class IDE():
         self.outputFile.write(Main._fileData)
         self.outputFile.close()
 
-        if self.objMain.PROG():
-            print("Code is parsed")
-        else:
-            print("there is error in code")
+        #call syntax
+        self.objMain.PROG()
+
+        # if self.objMain.PROG():
+        #     print("Code is parsed")
+        # else:
+        #     print("there is error in code")
 
 
     def newFunc(self):

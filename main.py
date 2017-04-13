@@ -1,4 +1,5 @@
 
+import sys
 from lexical import Lexical
 from Token import Token
 
@@ -65,7 +66,9 @@ class Main():
                 if self.CLASS1():
                     return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def CLASS1(self):
@@ -85,7 +88,9 @@ class Main():
                                     if Main._tokens[Main._tokensIndex].CP == '}':
                                         return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def PARENT(self):
@@ -127,7 +132,9 @@ class Main():
                                             if Main._tokens[Main._tokensIndex].CP == '}':
                                                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def ARGS(self):
@@ -201,7 +208,9 @@ class Main():
             elif self.FUNC_DEF():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def S_ST2(self):
@@ -211,7 +220,9 @@ class Main():
             elif self.FUNC_CALL1():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def WHILE_ST(self):
@@ -228,7 +239,9 @@ class Main():
                             if self.BODY():
                                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def FOR_ST(self):
@@ -249,7 +262,9 @@ class Main():
                                         Main._tokensIndex += 1
                                         if self.BODY():
                                             return True
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def X(self):
@@ -276,7 +291,9 @@ class Main():
             if self.LIST():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
     def LIST(self):
         if Main._tokens[Main._tokensIndex].CP in ['=',',','ASGN_OPT']:
@@ -291,7 +308,9 @@ class Main():
                     if self.LIST2():
                         return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def INIT(self):
@@ -323,7 +342,9 @@ class Main():
             if self.INIT3():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
     def INIT3(self):
         if Main._tokens[Main._tokensIndex].CP =='=':
@@ -341,7 +362,9 @@ class Main():
             if self.E1():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
     def E1(self):
         # if Main._tokens[Main._tokensIndex].CP in ['LO',')']:
@@ -364,7 +387,9 @@ class Main():
             if self.F1():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def F1(self):
@@ -387,7 +412,9 @@ class Main():
             if self.G1():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
     def G1(self):
         # if Main._tokens[Main._tokensIndex].CP in ['RO','LO', ')']:
@@ -409,7 +436,9 @@ class Main():
             if self.H1():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def H1(self):
@@ -432,7 +461,9 @@ class Main():
             if self.I1():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
     def I1(self):
         # if Main._tokens[Main._tokensIndex].CP in ['DIV_MUL','ADD_SUB', 'RO', 'LO', ')']:
@@ -475,7 +506,9 @@ class Main():
             elif self.ARRAY_LIST():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def J1(self):
@@ -503,7 +536,9 @@ class Main():
                 if Main._tokens[Main._tokensIndex].CP == "]":
                     return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def VALS(self):
@@ -528,7 +563,9 @@ class Main():
         if Main._tokens[Main._tokensIndex].CP in ['INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
             return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
     def FUNC_CALL(self):
         if Main._tokens[Main._tokensIndex].CP in ['self','ID']:
@@ -550,7 +587,9 @@ class Main():
                 if self.FUNC_CALL1():
                     return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def FUNC_CALL1(self):
@@ -571,7 +610,9 @@ class Main():
             if self.FUNC_CALL2():
                 return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def FUNC_CALL2(self):
@@ -583,7 +624,9 @@ class Main():
         elif self.DECL_ASGN():
             return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def FUNC_CALL3(self):
@@ -630,7 +673,9 @@ class Main():
                                     if self.O_ELSE():
                                         return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def ELIF(self):
@@ -673,7 +718,9 @@ class Main():
                 if Main._tokens[Main._tokensIndex].CP == "}":
                     return True
 
-        return False
+        else:
+            sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+            # return False
 
 
     def mainMethod(self,f):
@@ -926,3 +973,5 @@ class Main():
         print(string)
         Main._fileData += string + "\n"
 
+    def errorPrint(self,valuePart,lineNum):
+        return "Error occur where token is "+valuePart+" line is "+lineNum
