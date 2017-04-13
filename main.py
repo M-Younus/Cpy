@@ -49,26 +49,12 @@ class Main():
 
 
     def PROG(self):
-        if Main._tokens[Main._tokensIndex].CP!='$':
-            if self.CLASS():
-                Main._tokensIndex += 1
-                if self.PROG():
-                    return True
-            elif self.FUNC_DEF():
-                Main._tokensIndex += 1
-                if self.PROG():
-                    return True
-            elif self.M_ST():
-                Main._tokensIndex += 1
-                if self.PROG():
-                    return True
-
-            else:
-                Main._tokensIndex -= 1
-                return True
-
-
-        return True
+        if self.CLASS():
+            return True
+        elif self.FUNC_DEF():
+            return True
+        elif self.M_ST():
+            return True
 
 
     def CLASS(self):
@@ -174,7 +160,7 @@ class Main():
                 return True
 
         else:
-            Main._tokensIndex += 1
+            Main._tokensIndex -= 1
             return True
 
 
