@@ -29,12 +29,12 @@ class IDE():
         self.outputFile.close()
 
         #call syntax
-        self.objMain.PROG()
+        # self.objMain.PROG()
 
-        # if self.objMain.PROG():
-        #     print("Code is parsed")
-        # else:
-        #     print("there is error in code")
+        if self.objMain.PROG():
+            print("Code is parsed")
+        else:
+            print("there is error in code")
 
 
     def newFunc(self):
