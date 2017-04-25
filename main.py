@@ -51,11 +51,14 @@ class Main():
         if Main._tokens[Main._tokensIndex].CP == "class":
             if self.CLASS():
                 return True
+            else:
+                sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].CP,Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
 
         if Main._tokens[Main._tokensIndex].CP in ['ID', 'self', 'while', 'for', 'if', 'def']:
             if self.M_ST():
                 return True
-
+            else:
+                sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].CP, Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
 
     def CLASS(self):
         if Main._tokens[Main._tokensIndex].CP == "class":
