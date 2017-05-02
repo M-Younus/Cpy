@@ -1,24 +1,19 @@
 
-# 1st way to exit
-# print("Dfd")
-# raise SystemExit(0)
-# print("younas")
+
+from bs4 import BeautifulSoup
+
+a=open(r"C:\Users\MY\Desktop\count_list.html","r")
+
+allText=[]
+
+soup=BeautifulSoup(a)
+b=soup.select("option")
+for i in range(239):
+    b[i]['value']=b[i].text
+    allText.append(b[i])
 
 
-#2nd way to exit
-# import sys
-# print("Dfd")
-# sys.exit("jaja")
-# print("younas")
-
-
-def am(a):
-    if a<5:
-        if a>3:
-            return True
-    else:
-        return False
-
-
-print(am(4))
+print(len(allText))
+for i in range(239):
+    print(allText[i])
 
