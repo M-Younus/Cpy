@@ -109,7 +109,6 @@ class Main():
                     return True
             else:
                 sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].CP, Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
-
         else:
             Main._tokensIndex -= 1
             return True
@@ -171,7 +170,6 @@ class Main():
                 return True
             else:
                 sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].CP, Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
-
         else:
             Main._tokensIndex -= 1
             return True
@@ -243,12 +241,13 @@ class Main():
 
 
     def S_ST2(self):
-        if Main._tokens[Main._tokensIndex].CP in ['=',',','ASGN_OPT',',','(','elif','else','ID', 'self', 'while', 'for', 'if','}']:
+        # if Main._tokens[Main._tokensIndex].CP in ['=',',','ASGN_OPT',',','(','elif','else','ID', 'self', 'while', 'for', 'if','}']:
+        if Main._tokens[Main._tokensIndex].CP in ['=',',','ASGN_OPT']:
             if self.LIST():
                 return True
-            elif self.FUNC_CALL1():
+        elif Main._tokens[Main._tokensIndex].CP in ['.','(']:
+            if self.FUNC_CALL1():
                 return True
-
         else:
             sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].CP,Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
 

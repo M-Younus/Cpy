@@ -1,5 +1,7 @@
 from tkinter import *
 
+from syntax import Syntax
+
 from main import Main
 
 class IDE():
@@ -31,7 +33,9 @@ class IDE():
         #call syntax
         # self.objMain.PROG()
 
-        if self.objMain.PROG():
+        self.objSyntax=Syntax(Main._tokens)
+
+        if self.objSyntax.PROG():
             print("Code is parsed")
         else:
             print("there is error in code")
