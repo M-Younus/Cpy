@@ -18,3 +18,12 @@ class Stack:
 
     def size(self):
         return len(self.items)
+
+    def clear(self):
+        self.items=[]
+
+    def contains(self,item):
+        return item in self.items
+
+    def toList(self):
+        return self.items

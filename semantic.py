@@ -1,18 +1,19 @@
 
 import sys
+from stack import Stack
+
+from miscl import (
+    matVariables
+)
 
 class Semantic:
 
-    _tokens = [];_tokensIndex=0
-
-    def __init__(self):
-        pass
+    _tokens = [];_tokensIndex=0;_currentScope=0
 
     def __init__(self,tokens=0):
         Semantic._tokens=tokens
-
-
-
+        self.objStack=Stack()
+        self.tblVariables=[]
 
     # def PROG(self):
     #     if Semantic._tokens[Semantic._tokensIndex].CP!='$':
@@ -36,6 +37,7 @@ class Semantic:
     #
     #     return True
 
+    #region CFG Methods
 
     def PROG(self):
         if Semantic._tokens[Semantic._tokensIndex].CP == "class":
@@ -754,6 +756,7 @@ class Semantic:
     def errorPrint(self,classPart,valuePart,lineNum):
         return "Error occur where class is "+classPart+" and value is "+valuePart+" line is "+str(lineNum)
 
+    #endregion
 
     def COMP(self,RP,LP,OP):
         if RP == LP and OP in ['ADD_SUB','DIV_MUL']:
@@ -768,3 +771,11 @@ class Semantic:
 
 
     def LOOK_UP(self,N,S):
+        for t in self.tblVariables:
+            if t.name==N and t.scope<=S:
+                return t.type
+
+        return None
+
+    def INSERT(self,N,T,S):
+        self.tblVariables.append(matVariables(N,T,S))

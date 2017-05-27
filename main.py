@@ -1,7 +1,7 @@
 
 import sys
 from lexical import Lexical
-from Token import Token
+from miscl import Token
 
 import re
 
@@ -46,6 +46,7 @@ class Main():
     #
     #     return True
 
+    #region CFG methods
 
     def PROG(self):
         if Main._tokens[Main._tokensIndex].CP == "class":
@@ -760,6 +761,8 @@ class Main():
                     sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].CP, Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
         else:
             sys.exit(self.errorPrint(Main._tokens[Main._tokensIndex].CP,Main._tokens[Main._tokensIndex].VP,Main._tokens[Main._tokensIndex].LN))
+
+    #endregion
 
 
     def mainMethod(self,f):
