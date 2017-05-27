@@ -5,8 +5,13 @@ class Semantic:
 
     _tokens = [];_tokensIndex=0
 
-    def __init__(self,tokens):
+    def __init__(self):
+        pass
+
+    def __init__(self,tokens=0):
         Semantic._tokens=tokens
+
+
 
 
     # def PROG(self):
@@ -748,3 +753,18 @@ class Semantic:
 
     def errorPrint(self,classPart,valuePart,lineNum):
         return "Error occur where class is "+classPart+" and value is "+valuePart+" line is "+str(lineNum)
+
+
+    def COMP(self,RP,LP,OP):
+        if RP == LP and OP in ['ADD_SUB','DIV_MUL']:
+            if RP in ['CHAR_CONST','STR_CONST'] and OP.VP == '+':
+                return 'STR_CONST'
+            elif RP in ['INT_CONST','FLT_CONST']:
+                return RP
+        if OP =='RO' and RP and LP in ['INT_CONST','FLT_CONST']:
+            return 'BOOL'
+        if OP=='LO' and RP and LP =='BOOL':
+            return 'BOOL'
+
+
+    def LOOK_UP(self,N,S):

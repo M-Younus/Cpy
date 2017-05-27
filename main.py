@@ -827,8 +827,12 @@ class Main():
                     Main._temp = ""
 
                 if lex.chk_keywords(Main._temp, Main._lineNum):
-                    self.printToken(Main._temp,"-", Main._lineNum)
-                    Main._tokens.append(Token(Main._temp,"-", Main._lineNum))
+                    if Main._temp in ['True','False']:
+                        self.printToken("BOOL", Main._temp, Main._lineNum)
+                        Main._tokens.append(Token("BOOL", Main._temp, Main._lineNum))
+                    else:
+                        self.printToken(Main._temp,"-", Main._lineNum)
+                        Main._tokens.append(Token(Main._temp,"-", Main._lineNum))
                     Main._temp = ""
 
                 elif lex.chk_ID(Main._temp, Main._lineNum):
