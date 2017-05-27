@@ -40,6 +40,8 @@ class Syntax:
             if self.M_ST():
                 return True
 
+    #region Class
+
     def CLASS(self):
         if Syntax._tokens[Syntax._tokensIndex].CP == "class":
             Syntax._tokensIndex += 1
@@ -98,6 +100,9 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region FUNC DEF
 
     def FUNC_DEF(self):
         if Syntax._tokens[Syntax._tokensIndex].CP == 'def':
@@ -136,7 +141,6 @@ class Syntax:
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
-
     def ARGS(self):
         if Syntax._tokens[Syntax._tokensIndex].CP in ['self', 'ID']:
             if self.SELF():
@@ -146,7 +150,6 @@ class Syntax:
         else:
             Syntax._tokensIndex -= 1
             return True
-
 
     def SELF(self):
         if Syntax._tokens[Syntax._tokensIndex].CP=='self':
@@ -159,7 +162,6 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
-
     def RET(self):
         if Syntax._tokens[Syntax._tokensIndex].CP=='return':
             Syntax._tokensIndex += 1
@@ -169,6 +171,9 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region Statement
 
     def M_ST(self):
         if Syntax._tokens[Syntax._tokensIndex].CP in ['ID', 'self', 'while', 'for', 'if', 'def']:
@@ -224,7 +229,6 @@ class Syntax:
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
-
     def S_ST2(self):
         # if Syntax._tokens[Syntax._tokensIndex].CP in ['=',',','ASGN_OPT',',','(','elif','else','ID', 'self', 'while', 'for', 'if','}']:
         if Syntax._tokens[Syntax._tokensIndex].CP in ['=',',','ASGN_OPT']:
@@ -236,6 +240,9 @@ class Syntax:
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
+    #endregion
+
+    #region LOOPS
 
     def WHILE_ST(self):
         if Syntax._tokens[Syntax._tokensIndex].CP == 'while':
@@ -259,7 +266,6 @@ class Syntax:
                 sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP, Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
-
 
     def FOR_ST(self):
         if Syntax._tokens[Syntax._tokensIndex].CP == 'for':
@@ -290,7 +296,6 @@ class Syntax:
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
-
     def X(self):
         if self.DECL_ASGN():
             return True
@@ -305,6 +310,9 @@ class Syntax:
             Syntax._tokensIndex += 1
             return True
 
+    #endregion
+
+    #region DECL
 
     def DECL_ASGN(self):
         if Syntax._tokens[Syntax._tokensIndex].CP=="ID":
@@ -371,6 +379,9 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region Expression
 
     def E(self):
         if self.F():
@@ -531,6 +542,10 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region ARRAY LIST
+
     def ARRAY_LIST(self):
         if Syntax._tokens[Syntax._tokensIndex].CP == "[":
             Syntax._tokensIndex += 1
@@ -563,6 +578,7 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
+    #endregion
 
     def CONSTANT(self):
         if Syntax._tokens[Syntax._tokensIndex].CP in ['INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
@@ -570,6 +586,7 @@ class Syntax:
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
+    #region FUNC_CALL
 
     def FUNC_CALL(self):
         if Syntax._tokens[Syntax._tokensIndex].CP in ['self','ID']:
@@ -670,6 +687,7 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
+    #endregion
 
     def IF_ELSE(self):
         if Syntax._tokens[Syntax._tokensIndex].CP=="if":

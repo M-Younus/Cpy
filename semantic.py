@@ -779,3 +779,4 @@ class Semantic:
 
     def INSERT(self,N,T,S):
         self.tblVariables.append(matVariables(N,T,S))
+
