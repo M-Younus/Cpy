@@ -2,6 +2,8 @@
 import sys
 from stack import Stack
 
+from typing import overload
+
 from miscl import (
     matVariables
 )
@@ -14,6 +16,7 @@ class Semantic:
         Semantic._tokens=tokens
         self.objStack=Stack()
         self.tblVariables=[]
+        self.tblFunctions=[]
 
     # def PROG(self):
     #     if Semantic._tokens[Semantic._tokensIndex].CP!='$':
