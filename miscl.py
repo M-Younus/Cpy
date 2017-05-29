@@ -15,14 +15,8 @@ class baseMatrix:
         self.scope=scope
 
 
-class matVariables(baseMatrix):
-
-    def __init__(self,name,type,scope):
-        super(matVariables,self).__init__(name,scope)
-        self.type=type
-
 class matFunctions(baseMatrix):
 
-    def __init__(self,name,pl,rt,scope):
+    def __init__(self,name,tpl,scope):
         super(matFunctions,self).__init__(name,scope)
-        self.PLRT=pl+"->"+rt
+        self.PL=tpl

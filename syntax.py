@@ -9,29 +9,6 @@ class Syntax:
         Syntax._tokens=tokens
 
 
-    # def PROG(self):
-    #     if Syntax._tokens[Syntax._tokensIndex].CP!='$':
-    #         if self.CLASS():
-    #             Syntax._tokensIndex += 1
-    #             if self.PROG():
-    #                 return True
-    #         elif self.FUNC_DEF():
-    #             Syntax._tokensIndex += 1
-    #             if self.PROG():
-    #                 return True
-    #         elif self.M_ST():
-    #             Syntax._tokensIndex += 1
-    #             if self.PROG():
-    #                 return True
-    #
-    #         else:
-    #             Syntax._tokensIndex -= 1
-    #             return True
-    #
-    #
-    #     return True
-
-
     def PROG(self):
         if Syntax._tokens[Syntax._tokensIndex].CP == "class":
             if self.CLASS():

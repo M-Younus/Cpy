@@ -1,19 +1,10 @@
 
 
-from bs4 import BeautifulSoup
+def my():
+    a=4
+    return a
 
-a=open(r"C:\Users\MY\Desktop\count_list.html","r")
-
-allText=[]
-
-soup=BeautifulSoup(a)
-b=soup.select("option")
-for i in range(239):
-    b[i]['value']=b[i].text
-    allText.append(b[i])
+print(my())
 
 
-print(len(allText))
-for i in range(239):
-    print(allText[i])
-
+print(a)

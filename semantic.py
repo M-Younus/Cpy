@@ -2,10 +2,8 @@
 import sys
 from stack import Stack
 
-from typing import overload
-
 from miscl import (
-    matVariables
+    matFunctions
 )
 
 class Semantic:
@@ -15,30 +13,8 @@ class Semantic:
     def __init__(self,tokens=0):
         Semantic._tokens=tokens
         self.objStack=Stack()
-        self.tblVariables=[]
         self.tblFunctions=[]
 
-    # def PROG(self):
-    #     if Semantic._tokens[Semantic._tokensIndex].CP!='$':
-    #         if self.CLASS():
-    #             Semantic._tokensIndex += 1
-    #             if self.PROG():
-    #                 return True
-    #         elif self.FUNC_DEF():
-    #             Semantic._tokensIndex += 1
-    #             if self.PROG():
-    #                 return True
-    #         elif self.M_ST():
-    #             Semantic._tokensIndex += 1
-    #             if self.PROG():
-    #                 return True
-    #
-    #         else:
-    #             Semantic._tokensIndex -= 1
-    #             return True
-    #
-    #
-    #     return True
 
     #region CFG Methods
 
@@ -761,25 +737,14 @@ class Semantic:
 
     #endregion
 
-    def COMP(self,RP,LP,OP):
-        if RP == LP and OP in ['ADD_SUB','DIV_MUL']:
-            if RP in ['CHAR_CONST','STR_CONST'] and OP.VP == '+':
-                return 'STR_CONST'
-            elif RP in ['INT_CONST','FLT_CONST']:
-                return RP
-        if OP =='RO' and RP and LP in ['INT_CONST','FLT_CONST']:
-            return 'BOOL'
-        if OP=='LO' and RP and LP =='BOOL':
-            return 'BOOL'
 
+    def funcLOOKUP(self,N,S):
+        for t in self.tblFunctions:
+            if t.name==N:
+                return True
 
-    def LOOK_UP(self,N,S):
-        for t in self.tblVariables:
-            if t.name==N and t.scope<=S:
-                return t.type
+        return False
 
-        return None
-
-    def INSERT(self,N,T,S):
-        self.tblVariables.append(matVariables(N,T,S))
+    def funcINSERT(self,N,TPL,S):
+        self.tblFunctions.append(matFunctions(N,TPL,S))
 
