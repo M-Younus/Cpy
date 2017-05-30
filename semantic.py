@@ -3,16 +3,17 @@ import sys
 from stack import Stack
 
 from miscl import (
-    matFunctions
+    matFunctions,
+    matClassesContainer,
+    matClasses
 )
 
 class Semantic:
 
-    _tokens = [];_tokensIndex=0;_currentScope=0
+    _tokens = [];_tokensIndex=0
 
     def __init__(self,tokens=0):
         Semantic._tokens=tokens
-        self.objStack=Stack()
         self.tblFunctions=[]
         self.classesContainer = []
         self.tblClasses=[]
@@ -742,9 +743,9 @@ class Semantic:
 
 
     #call this only at function callling time
-    def funcLOOKUP(self,N,S):
+    def funcLOOKUP(self,N):
         for t in self.tblFunctions:
-            if t.name==N and t.scope<=S:
+            if t.name==N:
                 return True
 
         return False
@@ -752,15 +753,25 @@ class Semantic:
 
     #call this at function definition time
     #tpl=total parameter list
-    def funcINSERT(self,N,TPL,S):
+    def funcINSERT(self,N,TPL):
         for t in self.tblFunctions:
-            # if t.name==N and t.scope==S:
-            if t.name == N and t.scope == S:
+            if t.name == N:
                 self.tblFunctions.remove(t)
                 break
 
-        self.tblFunctions.append(matFunctions(N,TPL,S))
+        self.tblFunctions.append(matFunctions(N,TPL))
 
 
-    def
+    def classLookup(self,N):
+        for t in self.classesContainer:
+            if t.name==N:
+                return t.link
+
+        return None
+
+
+    def classContainerInsert(self,N,parent):
+        self.tblClasses.append(matClasses())
+        self.classesContainer.append(matClassesContainer(N,parent,))
+
 
