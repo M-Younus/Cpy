@@ -14,6 +14,9 @@ class Semantic:
         Semantic._tokens=tokens
         self.objStack=Stack()
         self.tblFunctions=[]
+        self.classesContainer = []
+        self.tblClasses=[]
+        self.tblInherit=[]
 
 
     #region CFG Methods
@@ -738,13 +741,26 @@ class Semantic:
     #endregion
 
 
+    #call this only at function callling time
     def funcLOOKUP(self,N,S):
         for t in self.tblFunctions:
-            if t.name==N:
+            if t.name==N and t.scope<=S:
                 return True
 
         return False
 
+
+    #call this at function definition time
+    #tpl=total parameter list
     def funcINSERT(self,N,TPL,S):
+        for t in self.tblFunctions:
+            # if t.name==N and t.scope==S:
+            if t.name == N and t.scope == S:
+                self.tblFunctions.remove(t)
+                break
+
         self.tblFunctions.append(matFunctions(N,TPL,S))
+
+
+    def
 
