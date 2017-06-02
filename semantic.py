@@ -752,7 +752,7 @@ class Semantic:
 
 
     #call this at function definition time
-    #tpl=total parameter list
+    #tpl->total parameter list
     def funcINSERT(self,N,TPL):
         for t in self.tblFunctions:
             if t.name == N:
@@ -780,11 +780,7 @@ class Semantic:
                 elif type==0:
                     return True
 
-                return False
-
-
-
-            #logic for above break,,logicc for dsaving class members,,,ovverride variables function etc
+        return False
 
 
     def classContainerInsert(self,N,parent):
