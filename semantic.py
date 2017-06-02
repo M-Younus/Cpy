@@ -10,7 +10,7 @@ from miscl import (
 
 class Semantic:
 
-    _tokens = [];_tokensIndex=0
+    _tokens = [];_tokensIndex=0;_link=0
 
     def __init__(self,tokens=0):
         Semantic._tokens=tokens
@@ -762,7 +762,8 @@ class Semantic:
         self.tblFunctions.append(matFunctions(N,TPL))
 
 
-    def classLookup(self,N):
+    #check if class exist or not
+    def classContainerLookup(self,N):
         for t in self.classesContainer:
             if t.name==N:
                 return t.link
@@ -770,8 +771,28 @@ class Semantic:
         return None
 
 
+    #check if class's members exist or not
+    def classLookup(self,name,type):
+        for t in self.tblClasses:
+            if t.name==name:
+                if type!=0 and type==type:
+                    return True
+                elif type==0:
+                    return True
+
+                return False
+
+
+
+            #logic for above break,,logicc for dsaving class members,,,ovverride variables function etc
+
+
     def classContainerInsert(self,N,parent):
-        self.tblClasses.append(matClasses())
-        self.classesContainer.append(matClassesContainer(N,parent,))
+        self.classesContainer.append(matClassesContainer(N,parent,Semantic._link))
+        Semantic._link = +1
+
+    def classInsert(self,name,type):
+        self.tblClasses.append(matClasses(name,type))
+
 
 
