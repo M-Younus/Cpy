@@ -666,6 +666,8 @@ class Syntax:
 
     #endregion
 
+    #region IF-ELSE
+
     def IF_ELSE(self):
         if Syntax._tokens[Syntax._tokensIndex].CP=="if":
             Syntax._tokensIndex += 1
@@ -712,7 +714,6 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
-
     def O_ELSE(self):
         if Syntax._tokens[Syntax._tokensIndex].CP == "else":
             Syntax._tokensIndex += 1
@@ -726,6 +727,7 @@ class Syntax:
             Syntax._tokensIndex -= 1
             return True
 
+    #endregion
 
     def BODY(self):
         if self.S_ST():

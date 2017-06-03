@@ -1,11 +1,15 @@
 
 
-import re
+from tkinter import *
 
-randStr="cat cat's"
+root = Tk()
 
-print(re.findall('[cat]+["s]*',randStr))
+def yourFunction(event):
+    print('left')
 
-# randStr="doctor octors doctor's"
-#
-# print(re.findall("[doctor]+['s]*",randStr))
+frame = Frame(root, width=100, height=100)
+
+frame.bind("<F5>",yourFunction)   #Binds the "left" key to the frame and exexutes yourFunction if "left" key was pressed
+frame.pack()
+
+root.mainloop()

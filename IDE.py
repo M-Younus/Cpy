@@ -2,11 +2,13 @@ from tkinter import *
 
 from syntax import Syntax
 
+from semantic import Semantic
+
 from main import Main
 
 class IDE():
 
-    def Run(self):
+    def Run(self,event=0):
 
         self.objMain=Main()
 
@@ -34,9 +36,13 @@ class IDE():
         # self.objMain.PROG()
 
         self.objSyntax=Syntax(Main._tokens)
+        self.objSemantic = Semantic(Main._tokens)
 
         if self.objSyntax.PROG():
-            print("Code is parsed")
+            if self.objSemantic.PROG():
+                print("Code is parsed")
+            else:
+                print("there is error in code")
         else:
             print("there is error in code")
 
@@ -49,6 +55,8 @@ class IDE():
     def falto(self):
         pass
 
+    def yourFunction(self,event):
+        print('left')
 
     def __init__(self,root):
 
@@ -81,6 +89,10 @@ class IDE():
         self.menu.add_command(label="Run",command=self.Run)
 
         self.codeFrame = Frame(root, height=400, bg="red")
+
+        #bind F5 key to Run method
+        root.bind("<F5>", self.Run)
+
         self.codescroll = Scrollbar(self.codeFrame)
 
         #we able to change size of frame
@@ -102,7 +114,6 @@ class IDE():
         self.consoleT.pack(side="left",fill="both",expand=True)
 
         self.consoleFrame.pack(fill=X)
-
 
 
 root=Tk()

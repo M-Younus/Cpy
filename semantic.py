@@ -12,7 +12,7 @@ class Semantic:
 
     _tokens = [];_tokensIndex=0;_link=0
 
-    def __init__(self,tokens=0):
+    def __init__(self,tokens):
         Semantic._tokens=tokens
         self.tblFunctions=[]
         self.classesContainer = []
