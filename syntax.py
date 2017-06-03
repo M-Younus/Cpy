@@ -7,6 +7,7 @@ class Syntax:
 
     def __init__(self,tokens):
         Syntax._tokens=tokens
+        Syntax._tokensIndex = 0
 
 
     def PROG(self):

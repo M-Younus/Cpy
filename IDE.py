@@ -39,12 +39,17 @@ class IDE():
         self.objSemantic = Semantic(Main._tokens)
 
         if self.objSyntax.PROG():
-            if self.objSemantic.PROG():
-                print("Code is parsed")
-            else:
-                print("there is error in code")
+            print("Code is parsed")
         else:
             print("there is error in code")
+
+        # if self.objSyntax.PROG():
+        #     if self.objSemantic.PROG():
+        #         print("Code is parsed")
+        #     else:
+        #         print("there is error in code")
+        # else:
+        #     print("there is error in code")
 
 
     def newFunc(self):

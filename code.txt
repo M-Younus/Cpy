@@ -1,2 +1,4 @@
-cls my:{
+class my():{
+def hel(a,b):{
+}
 }
