@@ -39,7 +39,7 @@ class IDE():
         self.objSemantic = Semantic(Main._tokens)
 
         if self.objSyntax.PROG():
-            print("Code is parsed")
+            print("Code is parsedxxc")
         else:
             print("there is error in code")
 
