@@ -787,21 +787,26 @@ class Main():
             elif ch == '+' or ch == '-':
                 OneRight = str(f.read(1), 'utf-8')
                 if ch == OneRight:
-                    Main._temp = ch + OneRight
-                    self.printToken("INC_DEC", Main._temp, Main._lineNum)
-                    Main._tokens.append(Token("INC_DEC", Main._temp, Main._lineNum))
-                    Main._temp = ""
-                    continue
-                f.seek(-1, 1)
-                f.seek(-2, 1)
-                OneLeft = str(f.read(1), 'utf-8')
-                f.seek(1, 1)
-                OneRight = str(f.read(1), 'utf-8')
-                TwoRight = str(f.read(1), 'utf-8')
-                f.seek(-2, 1)
-                if (not re.match("[0-9A-Za-z]", OneLeft)) and (re.match("[0-9]", OneRight) or re.match("[0-9]", TwoRight)):
-                    Main._temp += ch
-                    continue
+                    if Main._temp=="":
+                        Main._temp = ch + OneRight
+                        self.printToken("INC_DEC", Main._temp, Main._lineNum)
+                        Main._tokens.append(Token("INC_DEC", Main._temp, Main._lineNum))
+                        Main._temp = ""
+                        continue
+                    else:
+                        f.seek(-1, 1)
+                else:
+                    f.seek(-1, 1)
+                    f.seek(-2, 1)
+                    OneLeft = str(f.read(1), 'utf-8')
+                    f.seek(1, 1)
+                    OneRight = str(f.read(1), 'utf-8')
+                    TwoRight = str(f.read(1), 'utf-8')
+                    f.seek(-2, 1)
+                    if (not re.match("[0-9A-Za-z]", OneLeft)) and (re.match("[0-9]", OneRight) or re.match("[0-9]", TwoRight)):
+                        Main._temp += ch
+                        continue
+
 
             if ch in Main._breakers:
 

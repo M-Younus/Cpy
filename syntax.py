@@ -262,8 +262,12 @@ class Syntax:
                                     Syntax._tokensIndex += 1
                                     if Syntax._tokens[Syntax._tokensIndex].CP == ')':
                                         Syntax._tokensIndex += 1
-                                        if self.BODY():
-                                            return True
+                                        if Syntax._tokens[Syntax._tokensIndex].CP == ":":
+                                            Syntax._tokensIndex += 1
+                                            if self.BODY():
+                                                return True
+                                        else:
+                                            sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
                                     else:
                                         sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
                             else:
@@ -294,10 +298,22 @@ class Syntax:
     #region DECL
 
     def DECL_ASGN(self):
-        if Syntax._tokens[Syntax._tokensIndex].CP=="ID":
-            Syntax._tokensIndex+=1
-            if self.LIST():
-                return True
+        if Syntax._tokens[Syntax._tokensIndex].CP in ["ID","INC_DEC"]:
+            if Syntax._tokens[Syntax._tokensIndex].CP=="ID":
+                Syntax._tokensIndex+=1
+                if Syntax._tokens[Syntax._tokensIndex].CP in ['=',',','ASGN_OPT']:
+                    if self.LIST():
+                        return True
+                elif Syntax._tokens[Syntax._tokensIndex].CP == "INC_DEC":
+                    return True
+                else:
+                    sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP, Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
+            elif Syntax._tokens[Syntax._tokensIndex].CP == "INC_DEC":
+                Syntax._tokensIndex += 1
+                if Syntax._tokens[Syntax._tokensIndex].CP == "ID":
+                    return True
+                else:
+                    sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP, Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
@@ -689,8 +705,7 @@ class Syntax:
                                     if self.O_ELSE():
                                         return True
                         else:
-                            sys.exit(
-                                self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP, Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
+                            sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP, Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
                     else:
                         sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP, Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
             else:
