@@ -1,5 +1,8 @@
 
 
+
+#in func def error is I am using DECL CFG for args thats why args must have same syntax as declaraion
+
 from tkinter import *
 
 root = Tk()

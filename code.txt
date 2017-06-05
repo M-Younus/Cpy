@@ -1,4 +1,1 @@
-class my():{
-def hel(a,b):{
-}
-}
+a=+.5

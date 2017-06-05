@@ -151,7 +151,7 @@ class Syntax:
 
     #endregion
 
-    #region Statement
+    #region Statements
 
     def M_ST(self):
         if Syntax._tokens[Syntax._tokensIndex].CP in ['ID', 'self', 'while', 'for', 'if', 'def']:
@@ -218,7 +218,7 @@ class Syntax:
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
-    #endregion
+    #endregions
 
     #region LOOPS
 
@@ -257,6 +257,7 @@ class Syntax:
                         if self.Y():
                             Syntax._tokensIndex += 1
                             if Syntax._tokens[Syntax._tokensIndex].CP == ';':
+                                Syntax._tokensIndex += 1
                                 if self.X():
                                     Syntax._tokensIndex += 1
                                     if Syntax._tokens[Syntax._tokensIndex].CP == ')':
@@ -330,6 +331,7 @@ class Syntax:
 
 
     def LIST2(self):
+        # if Syntax._tokens[Syntax._tokensIndex].CP in [',',';']:
         if Syntax._tokens[Syntax._tokensIndex].CP==',':
             Syntax._tokensIndex += 1
             if self.DECL_ASGN():
@@ -677,6 +679,7 @@ class Syntax:
                 if self.E():
                     Syntax._tokensIndex += 1
                     if Syntax._tokens[Syntax._tokensIndex].CP == ")":
+                        Syntax._tokensIndex += 1
                         if Syntax._tokens[Syntax._tokensIndex].CP == ":":
                             Syntax._tokensIndex += 1
                             if self.BODY():
@@ -731,8 +734,9 @@ class Syntax:
     #endregion
 
     def BODY(self):
-        if self.S_ST():
-            return True
+        if Syntax._tokens[Syntax._tokensIndex].CP in ['ID', 'self', 'while', 'for', 'if', 'def']:
+            if self.S_ST():
+                return True
         elif Syntax._tokens[Syntax._tokensIndex].CP == "{":
             Syntax._tokensIndex += 1
             if self.M_ST():

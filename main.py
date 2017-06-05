@@ -785,6 +785,14 @@ class Main():
                         f.seek(-1,1)
 
             elif ch == '+' or ch == '-':
+                OneRight = str(f.read(1), 'utf-8')
+                if ch == OneRight:
+                    Main._temp = ch + OneRight
+                    self.printToken("INC_DEC", Main._temp, Main._lineNum)
+                    Main._tokens.append(Token("INC_DEC", Main._temp, Main._lineNum))
+                    Main._temp = ""
+                    continue
+                f.seek(-1, 1)
                 f.seek(-2, 1)
                 OneLeft = str(f.read(1), 'utf-8')
                 f.seek(1, 1)
