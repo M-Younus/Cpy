@@ -14,13 +14,13 @@ class Semantic:
 
     def __init__(self,tokens):
         Semantic._tokens=tokens
+        Semantic._tokensIndex = 0
         self.tblFunctions=[]
         self.classesContainer = []
         self.tblClasses=[]
         self.tblInherit=[]
 
 
-    #region CFG Methods
 
     def PROG(self):
         if Semantic._tokens[Semantic._tokensIndex].CP == "class":
@@ -29,6 +29,8 @@ class Semantic:
         if Semantic._tokens[Semantic._tokensIndex].CP in ['ID', 'self', 'while', 'for', 'if', 'def']:
             if self.M_ST():
                 return True
+
+    #region Class
 
     def CLASS(self):
         if Semantic._tokens[Semantic._tokensIndex].CP == "class":
@@ -88,6 +90,9 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region FUNC DEF
 
     def FUNC_DEF(self):
         if Semantic._tokens[Semantic._tokensIndex].CP == 'def':
@@ -126,7 +131,6 @@ class Semantic:
         else:
             sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP,Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
 
-
     def ARGS(self):
         if Semantic._tokens[Semantic._tokensIndex].CP in ['self', 'ID']:
             if self.SELF():
@@ -136,7 +140,6 @@ class Semantic:
         else:
             Semantic._tokensIndex -= 1
             return True
-
 
     def SELF(self):
         if Semantic._tokens[Semantic._tokensIndex].CP=='self':
@@ -149,7 +152,6 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
-
     def RET(self):
         if Semantic._tokens[Semantic._tokensIndex].CP=='return':
             Semantic._tokensIndex += 1
@@ -159,6 +161,9 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region Statements
 
     def M_ST(self):
         if Semantic._tokens[Semantic._tokensIndex].CP in ['ID', 'self', 'while', 'for', 'if', 'def']:
@@ -226,6 +231,9 @@ class Semantic:
         else:
             sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP,Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
 
+    #endregions
+
+    #region LOOPS
 
     def WHILE_ST(self):
         if Semantic._tokens[Semantic._tokensIndex].CP == 'while':
@@ -250,7 +258,6 @@ class Semantic:
         else:
             sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP,Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
 
-
     def FOR_ST(self):
         if Semantic._tokens[Semantic._tokensIndex].CP == 'for':
             Semantic._tokensIndex += 1
@@ -263,12 +270,17 @@ class Semantic:
                         if self.Y():
                             Semantic._tokensIndex += 1
                             if Semantic._tokens[Semantic._tokensIndex].CP == ';':
+                                Semantic._tokensIndex += 1
                                 if self.X():
                                     Semantic._tokensIndex += 1
                                     if Semantic._tokens[Semantic._tokensIndex].CP == ')':
                                         Semantic._tokensIndex += 1
-                                        if self.BODY():
-                                            return True
+                                        if Semantic._tokens[Semantic._tokensIndex].CP == ":":
+                                            Semantic._tokensIndex += 1
+                                            if self.BODY():
+                                                return True
+                                        else:
+                                            sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP,Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
                                     else:
                                         sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP,Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
                             else:
@@ -279,7 +291,6 @@ class Semantic:
                 sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP, Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
         else:
             sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP,Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
-
 
     def X(self):
         if self.DECL_ASGN():
@@ -295,12 +306,27 @@ class Semantic:
             Semantic._tokensIndex += 1
             return True
 
+    #endregion
+
+    #region DECL
 
     def DECL_ASGN(self):
-        if Semantic._tokens[Semantic._tokensIndex].CP=="ID":
-            Semantic._tokensIndex+=1
-            if self.LIST():
-                return True
+        if Semantic._tokens[Semantic._tokensIndex].CP in ["ID","INC_DEC"]:
+            if Semantic._tokens[Semantic._tokensIndex].CP=="ID":
+                Semantic._tokensIndex+=1
+                if Semantic._tokens[Semantic._tokensIndex].CP in ['=',',','ASGN_OPT']:
+                    if self.LIST():
+                        return True
+                elif Semantic._tokens[Semantic._tokensIndex].CP == "INC_DEC":
+                    return True
+                else:
+                    sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP, Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
+            elif Semantic._tokens[Semantic._tokensIndex].CP == "INC_DEC":
+                Semantic._tokensIndex += 1
+                if Semantic._tokens[Semantic._tokensIndex].CP == "ID":
+                    return True
+                else:
+                    sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP, Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
         else:
             sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP,Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
 
@@ -334,6 +360,7 @@ class Semantic:
 
 
     def LIST2(self):
+        # if Semantic._tokens[Semantic._tokensIndex].CP in [',',';']:
         if Semantic._tokens[Semantic._tokensIndex].CP==',':
             Semantic._tokensIndex += 1
             if self.DECL_ASGN():
@@ -361,6 +388,9 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region Expression
 
     def E(self):
         if self.F():
@@ -521,6 +551,10 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region ARRAY LIST
+
     def ARRAY_LIST(self):
         if Semantic._tokens[Semantic._tokensIndex].CP == "[":
             Semantic._tokensIndex += 1
@@ -553,6 +587,7 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
+    #endregion
 
     def CONSTANT(self):
         if Semantic._tokens[Semantic._tokensIndex].CP in ['INT_CONST', 'FLT_CONST','STR_CONST', 'CHAR_CONST']:
@@ -560,6 +595,7 @@ class Semantic:
         else:
             sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP,Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
 
+    #region FUNC_CALL
 
     def FUNC_CALL(self):
         if Semantic._tokens[Semantic._tokensIndex].CP in ['self','ID']:
@@ -660,6 +696,9 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
+    #endregion
+
+    #region IF-ELSE
 
     def IF_ELSE(self):
         if Semantic._tokens[Semantic._tokensIndex].CP=="if":
@@ -669,6 +708,7 @@ class Semantic:
                 if self.E():
                     Semantic._tokensIndex += 1
                     if Semantic._tokens[Semantic._tokensIndex].CP == ")":
+                        Semantic._tokensIndex += 1
                         if Semantic._tokens[Semantic._tokensIndex].CP == ":":
                             Semantic._tokensIndex += 1
                             if self.BODY():
@@ -678,8 +718,7 @@ class Semantic:
                                     if self.O_ELSE():
                                         return True
                         else:
-                            sys.exit(
-                                self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP, Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
+                            sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP, Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
                     else:
                         sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP, Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
             else:
@@ -707,7 +746,6 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
-
     def O_ELSE(self):
         if Semantic._tokens[Semantic._tokensIndex].CP == "else":
             Semantic._tokensIndex += 1
@@ -721,10 +759,12 @@ class Semantic:
             Semantic._tokensIndex -= 1
             return True
 
+    #endregion
 
     def BODY(self):
-        if self.S_ST():
-            return True
+        if Semantic._tokens[Semantic._tokensIndex].CP in ['ID', 'self', 'while', 'for', 'if', 'def']:
+            if self.S_ST():
+                return True
         elif Semantic._tokens[Semantic._tokensIndex].CP == "{":
             Semantic._tokensIndex += 1
             if self.M_ST():
@@ -739,7 +779,6 @@ class Semantic:
     def errorPrint(self,classPart,valuePart,lineNum):
         return "Error occur where class is "+classPart+" and value is "+valuePart+" line is "+str(lineNum)
 
-    #endregion
 
 
     #call this only at function callling time
