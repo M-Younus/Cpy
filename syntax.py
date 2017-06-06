@@ -648,7 +648,7 @@ class Syntax:
             Syntax._tokensIndex += 1
             if self.FUNC_CALL3():
                 return True
-        elif self.DECL_ASGN():
+        elif self.PARAMS():
             return True
 
         else:
@@ -678,43 +678,32 @@ class Syntax:
 
 
     def PARAMS(self):
-        if Syntax._tokens[Syntax._tokensIndex].CP == 'ID':
+        if Syntax._tokens[Syntax._tokensIndex].CP == "ID":
             Syntax._tokensIndex += 1
-            if Syntax._tokens[Syntax._tokensIndex].CP == '=':
-                Syntax._tokensIndex += 1
-                if self.E():
-                    Syntax._tokensIndex += 1
-                    if self.PARAMS():
-                        return True
-        elif Syntax._tokens[Syntax._tokensIndex].CP == ',':
-            Syntax._tokensIndex += 1
-            if Syntax._tokens[Syntax._tokensIndex].CP == 'ID':
-                Syntax._tokensIndex += 1
-                if Syntax._tokens[Syntax._tokensIndex].CP == '=':
-                    Syntax._tokensIndex += 1
-                    if self.E():
-                        Syntax._tokensIndex += 1
-                        if self.PARAMS():
-                            return True
-        elif Syntax._tokens[Syntax._tokensIndex].CP == 'ID':
-            Syntax._tokensIndex += 1
-            if self.PARAMS():
+            if self.PARAMS1():
                 return True
-
-        elif Syntax._tokens[Syntax._tokensIndex].CP == ',':
+        elif Syntax._tokens[Syntax._tokensIndex].CP == ",":
             Syntax._tokensIndex += 1
-            if Syntax._tokens[Syntax._tokensIndex].CP == 'ID':
+            if Syntax._tokens[Syntax._tokensIndex].CP == "ID":
                 Syntax._tokensIndex += 1
-                if self.PARAMS():
+                if self.PARAMS1():
                     return True
 
         else:
             Syntax._tokensIndex -= 1
             return True
 
-
-
-
+    def PARAMS1(self):
+        if Syntax._tokens[Syntax._tokensIndex].CP == "=":
+            Syntax._tokensIndex += 1
+            if self.E():
+                Syntax._tokensIndex += 1
+                if self.PARAMS():
+                    return True
+        elif self.PARAMS():
+            return True
+        else:
+            sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP, Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
     #endregion
 

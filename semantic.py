@@ -660,7 +660,7 @@ class Semantic:
             Semantic._tokensIndex += 1
             if self.FUNC_CALL3():
                 return True
-        elif self.DECL_ASGN():
+        elif self.PARAMS():
             return True
 
         else:
@@ -690,11 +690,32 @@ class Semantic:
 
 
     def PARAMS(self):
-        if self.DECL_ASGN():
-            return True
+        if Semantic._tokens[Semantic._tokensIndex].CP == "ID":
+            Semantic._tokensIndex += 1
+            if self.PARAMS1():
+                return True
+        elif Semantic._tokens[Semantic._tokensIndex].CP == ",":
+            Semantic._tokensIndex += 1
+            if Semantic._tokens[Semantic._tokensIndex].CP == "ID":
+                Semantic._tokensIndex += 1
+                if self.PARAMS1():
+                    return True
+
         else:
             Semantic._tokensIndex -= 1
             return True
+
+    def PARAMS1(self):
+        if Semantic._tokens[Semantic._tokensIndex].CP == "=":
+            Semantic._tokensIndex += 1
+            if self.E():
+                Semantic._tokensIndex += 1
+                if self.PARAMS():
+                    return True
+        elif self.PARAMS():
+            return True
+        else:
+            sys.exit(self.errorPrint(Semantic._tokens[Semantic._tokensIndex].CP, Semantic._tokens[Semantic._tokensIndex].VP,Semantic._tokens[Semantic._tokensIndex].LN))
 
     #endregion
 

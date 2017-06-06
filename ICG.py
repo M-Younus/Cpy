@@ -3,7 +3,7 @@ import sys
 
 class ICG:
 
-    _tokens = [];_tokensIndex=0
+    _tokens = [];_tokensIndex=0;_tempNum=0;_labelNum=0
 
     def __init__(self,tokens):
         ICG._tokens=tokens
@@ -225,16 +225,25 @@ class ICG:
 
     def WHILE_ST(self):
         if ICG._tokens[ICG._tokensIndex].CP == 'while':
+            WL1=self.createLabel()
+            self.generate(WL1+":")
+            self.generate(self.createLabel()+":")
             ICG._tokensIndex += 1
             if ICG._tokens[ICG._tokensIndex].CP == '(':
                 ICG._tokensIndex += 1
-                if self.E():
+                WT1=self.createTemp()
+                if self.E(WT1):
                     ICG._tokensIndex += 1
                     if ICG._tokens[ICG._tokensIndex].CP == ')':
+                        WL2 = self.createLabel()
+                        getattr("if("+WT1+"==FALSE)")
+                        self.generate("JMP "+WL2)
                         ICG._tokensIndex += 1
                         if ICG._tokens[ICG._tokensIndex].CP == ':':
                             ICG._tokensIndex += 1
                             if self.BODY():
+                                self.generate("JMP " + WL1)
+                                self.generate(WL2 + ":")
                                 return True
                         else:
                             sys.exit(
@@ -380,7 +389,7 @@ class ICG:
 
     #region Expression
 
-    def E(self):
+    def E(self,Etype):
         if self.F():
             ICG._tokensIndex += 1
             if self.E1():
@@ -693,17 +702,21 @@ class ICG:
             ICG._tokensIndex += 1
             if ICG._tokens[ICG._tokensIndex].CP == "(":
                 ICG._tokensIndex += 1
-                if self.E():
+                IT1=self.createTemp()
+                if self.E(IT1):
                     ICG._tokensIndex += 1
                     if ICG._tokens[ICG._tokensIndex].CP == ")":
+                        IL1=self.createLabel()
+                        self.generate("if("+IT1+"==FALSE)")
+                        self.generate("JMP "+IL1)
                         ICG._tokensIndex += 1
                         if ICG._tokens[ICG._tokensIndex].CP == ":":
                             ICG._tokensIndex += 1
                             if self.BODY():
                                 ICG._tokensIndex += 1
-                                if self.ELIF():
+                                if self.ELIF(IL1):
                                     ICG._tokensIndex += 1
-                                    if self.O_ELSE():
+                                    if self.O_ELSE(IL1):
                                         return True
                         else:
                             sys.exit(self.errorPrint(ICG._tokens[ICG._tokensIndex].CP, ICG._tokens[ICG._tokensIndex].VP,ICG._tokens[ICG._tokensIndex].LN))
@@ -715,7 +728,7 @@ class ICG:
             sys.exit(self.errorPrint(ICG._tokens[ICG._tokensIndex].CP,ICG._tokens[ICG._tokensIndex].VP,ICG._tokens[ICG._tokensIndex].LN))
 
 
-    def ELIF(self):
+    def ELIF(self,eLabel):
         if ICG._tokens[ICG._tokensIndex].CP == "elif":
             ICG._tokensIndex += 1
             if self.E():
@@ -731,11 +744,16 @@ class ICG:
                 else:
                     sys.exit(self.errorPrint(ICG._tokens[ICG._tokensIndex].CP, ICG._tokens[ICG._tokensIndex].VP,ICG._tokens[ICG._tokensIndex].LN))
         else:
+            self.generate(eLabel+":")
             ICG._tokensIndex -= 1
             return True
 
-    def O_ELSE(self):
+    def O_ELSE(self,oLabel):
+        OL2=None
         if ICG._tokens[ICG._tokensIndex].CP == "else":
+            OL2=self.createLabel()
+            self.generate("JMP"+OL2)
+            self.generate(oLabel+":")
             ICG._tokensIndex += 1
             if ICG._tokens[ICG._tokensIndex].CP == ":":
                 ICG._tokensIndex += 1
@@ -744,6 +762,7 @@ class ICG:
             else:
                 sys.exit(self.errorPrint(ICG._tokens[ICG._tokensIndex].CP, ICG._tokens[ICG._tokensIndex].VP,ICG._tokens[ICG._tokensIndex].LN))
         else:
+            self.generate(OL2+":")
             ICG._tokensIndex -= 1
             return True
 
@@ -767,3 +786,14 @@ class ICG:
     def errorPrint(self,classPart,valuePart,lineNum):
         return "Error occur where class is "+classPart+" and value is "+valuePart+" line is "+str(lineNum)
 
+
+
+    def createLabel(self):
+        return "L"+ICG._labelNum+1
+
+
+    def createTemp(self):
+        return "t"+ICG._tempNum+1
+
+    def generate(self,data):
+        print(data)
