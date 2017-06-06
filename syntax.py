@@ -207,6 +207,7 @@ class Syntax:
         else:
             sys.exit(self.errorPrint(Syntax._tokens[Syntax._tokensIndex].CP,Syntax._tokens[Syntax._tokensIndex].VP,Syntax._tokens[Syntax._tokensIndex].LN))
 
+
     def S_ST2(self):
         # if Syntax._tokens[Syntax._tokensIndex].CP in ['=',',','ASGN_OPT',',','(','elif','else','ID', 'self', 'while', 'for', 'if','}']:
         if Syntax._tokens[Syntax._tokensIndex].CP in ['=',',','ASGN_OPT']:
@@ -765,3 +766,4 @@ class Syntax:
 
     def errorPrint(self,classPart,valuePart,lineNum):
         return "Error occur where class is "+classPart+" and value is "+valuePart+" line is "+str(lineNum)
+
