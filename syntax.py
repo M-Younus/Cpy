@@ -678,11 +678,43 @@ class Syntax:
 
 
     def PARAMS(self):
-        if self.DECL_ASGN():
-            return True
+        if Syntax._tokens[Syntax._tokensIndex].CP == 'ID':
+            Syntax._tokensIndex += 1
+            if Syntax._tokens[Syntax._tokensIndex].CP == '=':
+                Syntax._tokensIndex += 1
+                if self.E():
+                    Syntax._tokensIndex += 1
+                    if self.PARAMS():
+                        return True
+        elif Syntax._tokens[Syntax._tokensIndex].CP == ',':
+            Syntax._tokensIndex += 1
+            if Syntax._tokens[Syntax._tokensIndex].CP == 'ID':
+                Syntax._tokensIndex += 1
+                if Syntax._tokens[Syntax._tokensIndex].CP == '=':
+                    Syntax._tokensIndex += 1
+                    if self.E():
+                        Syntax._tokensIndex += 1
+                        if self.PARAMS():
+                            return True
+        elif Syntax._tokens[Syntax._tokensIndex].CP == 'ID':
+            Syntax._tokensIndex += 1
+            if self.PARAMS():
+                return True
+
+        elif Syntax._tokens[Syntax._tokensIndex].CP == ',':
+            Syntax._tokensIndex += 1
+            if Syntax._tokens[Syntax._tokensIndex].CP == 'ID':
+                Syntax._tokensIndex += 1
+                if self.PARAMS():
+                    return True
+
         else:
             Syntax._tokensIndex -= 1
             return True
+
+
+
+
 
     #endregion
 
