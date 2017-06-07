@@ -260,21 +260,32 @@ class ICG:
             ICG._tokensIndex += 1
             if ICG._tokens[ICG._tokensIndex].CP == '(':
                 ICG._tokensIndex += 1
-                if self.X():
+                FT1=self.createTemp()
+                if self.X(FT1):
                     ICG._tokensIndex += 1
                     if ICG._tokens[ICG._tokensIndex].CP == ';':
+                        FL1=self.createLabel()
+                        self.generate(FL1+":")
                         ICG._tokensIndex += 1
-                        if self.Y():
+                        FT2=self.createTemp()
+                        if self.Y(FT2):
                             ICG._tokensIndex += 1
                             if ICG._tokens[ICG._tokensIndex].CP == ';':
                                 ICG._tokensIndex += 1
-                                if self.X():
+                                FT3=self.createTemp()
+                                if self.X(FT3):
                                     ICG._tokensIndex += 1
                                     if ICG._tokens[ICG._tokensIndex].CP == ')':
                                         ICG._tokensIndex += 1
                                         if ICG._tokens[ICG._tokensIndex].CP == ":":
                                             ICG._tokensIndex += 1
                                             if self.BODY():
+                                                self.generate("if("+FT2+"==FALSE")
+                                                FL2=self.createLabel()
+                                                self.generate("JMP "+FL2)
+                                                # T3
+                                                self.generate("JMP "+FL1)
+                                                self.generate(FL2+":")
                                                 return True
                                         else:
                                             sys.exit(self.errorPrint(ICG._tokens[ICG._tokensIndex].CP,ICG._tokens[ICG._tokensIndex].VP,ICG._tokens[ICG._tokensIndex].LN))

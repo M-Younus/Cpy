@@ -1,18 +1,17 @@
 
 
 
-#in func def error is I am using DECL CFG for args thats why args must have same syntax as declaraion
 
-from tkinter import *
 
-root = Tk()
+print("fd")
+print("Dfdf")
 
-def yourFunction(event):
-    print('left')
 
-frame = Frame(root, width=100, height=100)
+# progr correct cfg
 
-frame.bind("<F5>",yourFunction)   #Binds the "left" key to the frame and exexutes yourFunction if "left" key was pressed
-frame.pack()
+# <prog>-> <class><prog>|<m_st><prog>|null
 
-root.mainloop()
+
+# inheritance semantic logic,if any parent go for it grab all its data and copy it to child class simple,,
+
+# make logic for constructor--->semantic
